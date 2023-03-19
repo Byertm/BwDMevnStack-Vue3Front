@@ -55,9 +55,9 @@
 
 							<ul data-uk-grid data-uk-lightbox="animation: fade;  toggle: .eb-lightbox" class="js-filter uk-child-width-1-2 uk-grid-small">
 								<li v-for="(project, pIndex) in projectList" :key="project.id" class="data-web" :class="{ 'data-brand': pIndex % 3 === 0, 'data-design': pIndex % 2 === 1 }">
-									<div class="eb-work-item uk-transition-toggle">
+									<div class="eb-work-item -uk-transition-toggle eb-work-item-custom-image-effect">
 										<div class="eb-work-item-img-wrap">
-											<div class="eb-work-item-img">
+											<div class="eb-work-item-img eb-work-item-img-max-width">
 												<img
 													:src="project.imageUrl"
 													width="383"
@@ -69,21 +69,23 @@
 													class="uk-transition-scale-up uk-transition-opaque" />
 											</div>
 
-											<div class="eb-work-item-overlay uk-transition-fade uk-position-cover uk-position-small uk-overlay uk-flex uk-flex-center uk-flex-middle">
-												<div>
-													<a
-														:href="project.imageUrl"
-														data-attrs="crossorigin: anonymous; width: 1920; height: 1080;"
-														crossorigin="anonymous"
-														:data-caption="project.name"
-														class="eb-lightbox uk-transition-slide-left">
-														<span data-uk-icon="icon:plus; ratio:1.2"></span>
-													</a>
+											<div class="uk-transition-toggle">
+												<div class="eb-work-item-overlay uk-transition-fade uk-position-cover uk-position-small uk-overlay uk-flex uk-flex-center uk-flex-middle">
+													<div>
+														<a
+															:href="project.imageUrl"
+															data-attrs="crossorigin: anonymous; width: 1920; height: 1080;"
+															crossorigin="anonymous"
+															:data-caption="project.name"
+															class="eb-lightbox uk-transition-slide-left">
+															<span data-uk-icon="icon:plus; ratio:1.2"></span>
+														</a>
 
-													<!-- <a href="/templates/project/project-details-01.html" class="uk-transition-slide-right show-portfolio"> -->
-													<a @click="() => showProjectsDetail(project.id)" class="uk-transition-slide-right show-portfolio">
-														<span data-uk-icon="icon:link; ratio:1.2"></span>
-													</a>
+														<!-- <a href="/templates/project/project-details-01.html" class="uk-transition-slide-right show-portfolio"> -->
+														<a @click="() => showProjectsDetail(project.id)" class="uk-transition-slide-right show-portfolio">
+															<span data-uk-icon="icon:link; ratio:1.2"></span>
+														</a>
+													</div>
 												</div>
 											</div>
 										</div>

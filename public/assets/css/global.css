@@ -25,3 +25,29 @@
 ::-webkit-scrollbar-thumb:hover {
 	background-color: rgba(255, 255, 255, 0.2);
 }
+
+.eb-work-item-custom-image-effect .eb-work-item-img {
+	position: relative;
+}
+
+.eb-work-item-custom-image-effect .eb-work-item-img img {
+	position: absolute;
+	inset: 0;
+	translate: 0 0;
+	transition: translate 1s linear;
+}
+
+.eb-work-item-custom-image-effect .eb-work-item-img-wrap {
+	min-height: 240px;
+	max-height: 240px;
+}
+
+.eb-work-item-custom-image-effect .eb-work-item-title h5 {
+	font-size: 18px;
+}
+
+.eb-work-item-custom-image-effect:active .eb-work-item-img img,
+.eb-work-item-custom-image-effect:focus .eb-work-item-img img,
+.eb-work-item-custom-image-effect:hover .eb-work-item-img img {
+	translate: 0 calc(-100% + 240px);
+}
