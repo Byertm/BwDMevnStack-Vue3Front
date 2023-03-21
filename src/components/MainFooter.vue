@@ -7,8 +7,7 @@
 			<div id="waveHorizontal3" data-uk-img data-src="/assets/img/bg/wave3.svg" class="waveHorizontal"></div>
 		</div>
 
-		<!-- <a href="#app" data-uk-totop class="uk-visible@s eb-totop eb-inner-link"></a> -->
-		<router-link :to="{ path: `/#app` }" data-uk-totop class="uk-visible@s eb-totop eb-inner-link"></router-link>
+		<router-link :to="{ path: `/#app` }" data-uk-totop class="uk-visible eb-totop eb-inner-link"></router-link>
 
 		<div class="eb-main-footer">
 			<div class="uk-container">

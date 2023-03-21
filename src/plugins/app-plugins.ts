@@ -40,16 +40,21 @@ export function init_menu_toggle() {
 		document.querySelector('#app')?.classList.toggle('eb-menu-open');
 	});
 
-	document.querySelector('#btn-menu-toggle')?.addEventListener('click', function () {
-		document.querySelector('#main-menu')?.classList.toggle('open-menu');
-		return false;
+	document.querySelector('#btn-menu-toggle')?.addEventListener('click', function (event: Event) {
+		event?.preventDefault?.();
+		const mainMenu: HTMLDivElement | null = document.querySelector('#main-menu');
+		const menuCollapse: HTMLDivElement | null = document.querySelector('#menucollapse');
+		mainMenu?.classList.toggle('open-menu');
+
+		if (mainMenu?.classList?.contains?.('open-menu') && menuCollapse && menuCollapse?.offsetTop !== window?.pageYOffset)
+			menuCollapse.scrollIntoView({ behavior: 'smooth', block: 'start', inline: 'start' });
 	});
 
 	document.querySelectorAll('#menucollapse .uk-navbar-nav a')?.forEach((el: Element) => {
 		if (!!el)
-			el?.addEventListener('click', function () {
+			el?.addEventListener('click', function (event: Event) {
+				event?.preventDefault?.();
 				document.querySelector('#main-menu')?.classList.toggle('open-menu');
-				return false;
 			});
 	});
 }
