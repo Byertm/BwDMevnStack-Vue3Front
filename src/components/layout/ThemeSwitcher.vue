@@ -1,6 +1,6 @@
 <template>
-	<label title="Toggle Dark Mode" :color-mode="colorMode" class="theme-switcher-wrapper">
-		<button @click="toggleDark()" class="switcher switcher-appearance" type="button" role="switch" aria-checked="true">
+	<label title="Toggle Dark Mode" :color-mode="colorMode" class="theme-switcher-wrapper" :class="{ dark: isDark }">
+		<button @click="toggleDark()" type="button" role="switch" aria-checked="true" class="switcher switcher-appearance" :class="{ dark: isDark }">
 			<span class="check">
 				<span class="icon">
 					<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" viewBox="0 0 24 24" class="sun">
@@ -43,6 +43,26 @@
 		--c-text-2: rgba(56 56 56 / 70%);
 		--shadow: 0 1px 2px rgba(0, 0, 0, 0.04), 0 1px 2px rgba(0, 0, 0, 0.06);
 		--shadow-2: 0 3px 12px rgba(0, 0, 0, 0.07), 0 1px 4px rgba(0, 0, 0, 0.07);
+
+		&.custom-dark {
+			--i-border-color: rgba(82, 82, 89, 0.68);
+			--i-bg-color: #161618;
+			--i-hover-border-color: #8e8e93;
+			--i-switch-bg-color: #313136;
+			--c-neutral-inverse: #000000;
+			--c-text: rgba(255, 255, 245, 0.86);
+			--c-text-2: rgba(235, 235, 235, 0.6);
+		}
+
+		&.dark {
+			--i-border-color: #02101f;
+			--i-bg-color: #02101f;
+			--i-hover-border-color: #00ff95;
+			--i-switch-bg-color: #031222;
+			--c-neutral-inverse: #00ff95;
+			--c-text: #1e87f0;
+			--c-text-2: #1e87f0;
+		}
 
 		align-self: center;
 
@@ -95,42 +115,30 @@
 					}
 				}
 			}
-		}
 
-		&.dark .icon svg {
-			fill: var(--c-text);
-			transition: opacity 0.25s;
-		}
+			&.dark .icon svg {
+				fill: var(--c-text);
+				transition: opacity 0.25s;
+			}
 
-		.sun {
-			opacity: 1;
-		}
-
-		.moon,
-		&.dark .sun {
-			opacity: 0;
-		}
-
-		&.dark {
-			.moon {
+			.sun {
 				opacity: 1;
 			}
 
-			.switcher-appearance .check {
-				transform: translate(18px);
+			.moon,
+			&.dark .sun {
+				opacity: 0;
 			}
-		}
-	}
 
-	.dark {
-		.theme-switcher-wrapper {
-			--i-border-color: rgba(82, 82, 89, 0.68);
-			--i-bg-color: #161618;
-			--i-hover-border-color: #8e8e93;
-			--i-switch-bg-color: #313136;
-			--c-neutral-inverse: #000000;
-			--c-text: rgba(255, 255, 245, 0.86);
-			--c-text-2: rgba(235, 235, 235, 0.6);
+			&.dark {
+				.moon {
+					opacity: 1;
+				}
+
+				&.switcher-appearance .check {
+					transform: translate(18px);
+				}
+			}
 		}
 	}
 </style>

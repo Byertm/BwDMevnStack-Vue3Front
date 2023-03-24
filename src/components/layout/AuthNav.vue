@@ -1,5 +1,5 @@
 <template>
-	<nav class="uk-navbar-nav">
+	<nav class="uk-navbar-nav uk-visible@m">
 		<template v-if="isLogged">
 			<li>
 				<a class="nav-item nav-link">Hi {{ authUser?.name }}!</a>
@@ -16,14 +16,16 @@
 				<RouterLink to="/register" class="nav-item nav-link">Kayıt Ol!</RouterLink>
 			</li>
 		</template>
-		<li class="uk-flex">
-			<ThemeSwitcher></ThemeSwitcher>
-		</li>
 		<!-- <li>
 			<router-link :to="{ path: '/' }">
 				<span data-uk-icon="icon: facebook" class="uk-icon"></span>
 			</router-link>
 		</li> -->
+	</nav>
+	<nav class="uk-navbar-nav -uk-visible@s">
+		<li class="uk-flex">
+			<ThemeSwitcher></ThemeSwitcher>
+		</li>
 	</nav>
 </template>
 
