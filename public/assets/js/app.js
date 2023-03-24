@@ -56,13 +56,9 @@
 	function init_update_uikit() {
 		//sometimes sticky nav oveflow
 		if (!is_scroll) {
-			if ($('#resume-nav-wrapper').length) {
-				UIkit.update($('#resume-nav-wrapper'), 'update');
-			}
+			if ($('#resume-nav-wrapper').length) UIkit.update($('#resume-nav-wrapper'), 'update');
 
-			if ($('#portfolio-nav-wrapper').length) {
-				UIkit.update($('#portfolio-nav-wrapper'), 'update');
-			}
+			if ($('#portfolio-nav-wrapper').length) UIkit.update($('#portfolio-nav-wrapper'), 'update');
 		}
 	}
 
@@ -85,11 +81,8 @@
 		if (!is_resize) {
 			let window_height = $('#main-header').height() - ($('#main-menu').height() + 1);
 			let current_scroll = Math.round($(window).scrollTop());
-			if (current_scroll >= window_height) {
-				$('#main-menu').addClass('fixed');
-			} else {
-				$('#main-menu').removeClass('fixed');
-			}
+			if (current_scroll >= window_height) $('#main-menu').addClass('fixed');
+			else $('#main-menu').removeClass('fixed');
 		}
 	}
 
@@ -133,25 +126,13 @@
 	}
 
 	function init_scroll_to($el, speed, offset) {
-		$('html, body').animate(
-			{
-				scrollTop: $el.offset().top - offset
-			},
-			{
-				duration: speed,
-				easing: 'easeInOutExpo'
-			}
-		);
+		$('html, body').animate({ scrollTop: $el.offset().top - offset }, { duration: speed, easing: 'easeInOutExpo' });
 	}
 
 	function init_typed() {
 		let $typed = $('#typed');
 		if ($typed.length) {
-			let typed = new Typed('#typed', {
-				strings: ['developer', 'freelancer', 'marketer', 'photographer'],
-				loop: true,
-				typeSpeed: 70
-			});
+			let typed = new Typed('#typed', { strings: ['developer', 'freelancer', 'marketer', 'photographer'], loop: true, typeSpeed: 70 });
 		}
 	}
 
@@ -174,6 +155,7 @@
 						let alert = init_alert('contact-alert-success', dt.status_desc, 'uk-alert-primary', 'info');
 						$el.trigger('reset');
 					}
+
 					$.each(dt.error_msg, function (key, value) {
 						if (value == '') {
 							$('#' + key).removeClass('uk-form-danger');
