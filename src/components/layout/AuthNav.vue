@@ -16,7 +16,9 @@
 				<RouterLink to="/register" class="nav-item nav-link">Kayıt Ol!</RouterLink>
 			</li>
 		</template>
-		<!-- ThemeSwitcher -->
+		<li class="uk-flex">
+			<ThemeSwitcher></ThemeSwitcher>
+		</li>
 		<!-- <li>
 			<router-link :to="{ path: '/' }">
 				<span data-uk-icon="icon: facebook" class="uk-icon"></span>
@@ -30,6 +32,7 @@
 	import { useAuthStore, useUserStore } from "@/stores";
 	import { useRouter } from "vue-router";
 	import { RouterLink } from "vue-router";
+	import ThemeSwitcher from "./ThemeSwitcher.vue";
 
 	const router = useRouter();
 
