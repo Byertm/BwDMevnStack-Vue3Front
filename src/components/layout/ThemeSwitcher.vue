@@ -27,13 +27,8 @@
 <script setup lang="ts">
 	import { useColorMode, useDark, useToggle } from "@vueuse/core";
 
-	const colorMode = useColorMode();
-	const isDark = useDark({
-		selector: "body",
-		attribute: "class",
-		valueDark: "eb-dark-skin uk-light custom-dark",
-		valueLight: "custom-light"
-	});
+	const colorMode = useColorMode({ selector: "html", attribute: "theme", modes: { dim: "dim", cafe: "cafe" } });
+	const isDark = useDark({ selector: "body", attribute: "class", valueDark: "eb-dark-skin uk-light custom-dark", valueLight: "eb-light-skin uk-dark custom-light" });
 	const toggleDark = useToggle(isDark);
 </script>
 
