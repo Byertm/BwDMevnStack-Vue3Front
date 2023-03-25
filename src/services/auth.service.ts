@@ -1,6 +1,7 @@
 import { getLS, getLSWithParse } from '@helpers/local-storage';
 import { useFetch } from '@helpers/index';
 import { authLogin, authRefreshToken, authRegister } from '.';
+import { ContactFormValues } from "@models/site";
 
 const login = async (email: string, password: string) => {
 	return useFetch.post('login', { data: { email, password } });
@@ -12,6 +13,10 @@ const register = async (email: string, username: string, first_name: string, las
 
 const recoveryPassword = async (email: string) => {
 	return useFetch.post('recoveryPassword', { data: { email } });
+};
+
+const contactForm = async (values: ContactFormValues) => {
+	return useFetch.post('contact', { data: { ...values } });
 };
 
 const me = async () => {
@@ -29,5 +34,5 @@ const logout = async () => {
 	return useFetch.post('logout');
 };
 
-export { login as authLogin, logout, register as authRegister, refreshToken as authRefreshToken, recoveryPassword as authRecoveryPassword, me };
-export default { login: authLogin, logout, register: authRegister, refreshToken: authRefreshToken, me };
+export { login as authLogin, logout, register as authRegister, refreshToken as authRefreshToken, recoveryPassword as authRecoveryPassword, me, contactForm };
+export default { login: authLogin, logout, register: authRegister, refreshToken: authRefreshToken, me, contactForm };

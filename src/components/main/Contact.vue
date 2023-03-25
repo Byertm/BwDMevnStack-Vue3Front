@@ -25,6 +25,17 @@
 							<div class="uk-grid uk-grid-small uk-child-width-1-2@s">
 								<div>
 									<div class="uk-margin">
+										<label for="f_fullname" class="uk-form-label">Adınız Soyadınız*</label>
+										<div class="uk-form-controls uk-inline uk-width-1-1">
+											<span data-uk-icon="icon: user" class="uk-form-icon"></span>
+											<input type="text" v-model="contactForm.name" id="f_fullname" name="f_fullname" placeholder="Adınızı ve soyadınızı giriniz..." class="eb-input uk-input uk-border-rounded" />
+										</div>
+										<small class="uk-text-danger err-msg" id="f_fullname_error"></small>
+									</div>
+								</div>
+
+								<div>
+									<div class="uk-margin">
 										<label for="f_email" class="uk-form-label">E-Posta*</label>
 										<div class="uk-form-controls uk-inline uk-width-1-1">
 											<span data-uk-icon="icon: user" class="uk-form-icon"></span>
@@ -118,17 +129,16 @@
 
 <script setup lang="ts">
 	import { ref, reactive, computed } from "@vue/reactivity";
-	import { onMounted } from "@vue/runtime-core";
+	// import { onMounted } from "@vue/runtime-core";
 	import { useMouseInElement } from "@vueuse/core";
-	import { init_contact_form } from "@plugins/app-plugins";
+	// import { init_contact_form } from "@plugins/app-plugins";
+	import { ContactFormValues } from "@models/site";
+	import { useAuthStore } from "@/stores";
+	import toast from "@plugins/toast";
 
 	const target = ref(null);
-	const contactForm = reactive({
-		email: "",
-		phone: "",
-		subject: "",
-		message: ""
-	});
+	const authStore = useAuthStore();
+	const contactForm = reactive<ContactFormValues>({ name: "", email: "", phone: "", subject: "", message: "" });
 	const { elementX, elementY, isOutside, elementHeight, elementWidth } = useMouseInElement(target);
 
 	// Todo: Bunu generic hale nasıl getiririz düşünülecek.
@@ -140,12 +150,28 @@
 	});
 
 	const contact = () => {
-		alert(JSON.stringify(contactForm, null, 2));
+		let resObj = { contactForm: JSON.stringify(contactForm, null, 2), error: "" };
+		authStore
+			.contact(contactForm)
+			.then((data: unknown) => {
+				console.log(JSON.stringify(data, null, 2));
+				toast({ message: `<span uk-icon='icon: check'></span> Formunuz başarıyla gönderildi, kısa zamanda bir cevap yazacağım. Sağlıcakla kalın. :)`, status: "success" });
+			})
+			.catch((error) => {
+				if (error) {
+					resObj.error = JSON.stringify(error, null, 2);
+					alert(resObj);
+					toast({ message: `<span uk-icon='icon: refresh'></span> E-Posta gönderilirken bir hata oluştu. Lütfen daha sonra tekrar deneyiniz.`, status: "danger" });
+				}
+			})
+			.finally(() => {
+				console.log(resObj);
+			});
 	};
 
-	onMounted(async () => {
-		init_contact_form();
-	});
+	// onMounted(async () => {
+	// 	init_contact_form();
+	// });
 </script>
 
 <style scoped></style>

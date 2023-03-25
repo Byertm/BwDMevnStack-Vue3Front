@@ -31,8 +31,9 @@ export namespace UIkit {
 }
 
 export namespace UIkit {
-	const bFuncTest = (s: string): void => {};
+	// const bFuncTest = (s: string): void => {};
 	const use = (s: any): void => {};
+	const notification = (...args: any[]): void => {};
 }
 
 declare module 'uikit' {

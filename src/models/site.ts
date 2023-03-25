@@ -82,6 +82,8 @@ export const SiteInjectionKeys = { siteKey: Symbol(), ownerKey: Symbol(), logoKe
 export type TSiteOwner = { getSiteOwner: ISiteOwner; isSiteOwner: boolean };
 export type TSiteLogo = { getSiteLogo: ISiteLogo; isSiteLogo: boolean };
 
+export type ContactFormValues = { name: string; email: string; phone: string; subject: string; message: string };
+
 //#region Example Using
 // const site: ISite = {} as ISite;
 // site?.logo?.text;

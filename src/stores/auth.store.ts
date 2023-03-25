@@ -1,6 +1,7 @@
 import { defineStore } from 'pinia';
 import { getLS, setLSWithModel, setLSWithStringfyForData, removeLS } from '@helpers/local-storage';
-import { authLogin, authRegister, authRefreshToken, authRecoveryPassword } from '@services/auth.service';
+import { authLogin, authRegister, authRefreshToken, authRecoveryPassword, contactForm } from '@services/auth.service';
+import { ContactFormValues } from '@models/site';
 import router from '@router/index';
 
 interface AuthState {
@@ -47,6 +48,9 @@ export const useAuthStore = defineStore({
 		},
 		async recoveryPassword(email: string) {
 			this.user = await (await authRecoveryPassword(email)).data;
+		},
+		async contact(contactFormValues: ContactFormValues) {
+			return await (await contactForm(contactFormValues)).data;
 		},
 		logout() {
 			// fetchWrapper.post(`${baseUrl}/revoke-token`, {}, { credentials: 'include' });

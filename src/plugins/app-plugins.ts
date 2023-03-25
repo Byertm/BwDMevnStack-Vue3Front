@@ -224,22 +224,22 @@ export function init_contact_form() {
 				init_btn_loading(btn, false);
 			}
 
-			let uri: string = `${window.location.origin}/php/sendmail.php`;
-			fetch(uri, { method: 'POST', body: params, headers: { 'Content-type': 'application/json; charset=UTF-8' } })
-				.then(function (response) {
-					if (response.ok) return response.json();
-					return Promise.reject(response);
-				})
-				.then(function (data) {
-					debugger;
-					fnDataParse(data);
-					console.log(data);
-				})
-				.catch(function (error) {
-					if (typeof error === 'object') error = JSON.stringify(error);
-					console.warn(error);
-				})
-				.finally(() => init_btn_loading(btn, false));
+			// let uri: string = `${window.location.origin}/php/sendmail.php`;
+			// fetch(uri, { method: 'POST', body: params, headers: { 'Content-type': 'application/json; charset=UTF-8' } })
+			// 	.then(function (response) {
+			// 		if (response.ok) return response.json();
+			// 		return Promise.reject(response);
+			// 	})
+			// 	.then(function (data) {
+			// 		debugger;
+			// 		fnDataParse(data);
+			// 		console.log(data);
+			// 	})
+			// 	.catch(function (error) {
+			// 		if (typeof error === 'object') error = JSON.stringify(error);
+			// 		console.warn(error);
+			// 	})
+			// 	.finally(() => init_btn_loading(btn, false));
 
 			return false;
 		}
