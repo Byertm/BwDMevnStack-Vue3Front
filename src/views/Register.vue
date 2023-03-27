@@ -4,7 +4,7 @@
 	<PostHeader :isShowHome="true"></PostHeader>
 
 	<main class="eb-main-content">
-		<div uk-height-viewport class="uk-section uk-section-muted uk-flex uk-flex-middle uk-animation-fade">
+		<div uk-height-viewport class="uk-section uk-flex uk-flex-middle uk-animation-fade">
 			<div class="uk-width-1-1">
 				<div class="uk-container">
 					<div uk-grid class="uk-grid-margin uk-grid uk-grid-stack">
@@ -22,45 +22,45 @@
 										<div class="uk-inline uk-width-1-1">
 											<!-- <label>Email</label> -->
 											<span uk-icon="icon: mail" class="uk-form-icon"></span>
-											<Field name="email" type="text" placeholder="Email" class="uk-input uk-form-large" :class="{ 'is-invalid': errors.email }" />
-											<div class="invalid-feedback">{{ errors.email }}</div>
+											<Field name="email" type="text" placeholder="Email" class="uk-input uk-form-large" :class="{ 'uk-form-danger': errors.email }" />
 										</div>
+										<small class="uk-text-danger err-msg">{{ errors.email }}</small>
 									</div>
 
 									<div class="uk-margin">
 										<div class="uk-inline uk-width-1-1">
 											<!-- <label>Username</label> -->
 											<span uk-icon="icon: user" class="uk-form-icon"></span>
-											<Field name="username" type="text" placeholder="Username" class="uk-input uk-form-large" :class="{ 'is-invalid': errors.username }" />
-											<div class="invalid-feedback">{{ errors.username }}</div>
+											<Field name="username" type="text" placeholder="Username" class="uk-input uk-form-large" :class="{ 'uk-form-danger': errors.username }" />
 										</div>
+										<small class="uk-text-danger err-msg">{{ errors.username }}</small>
 									</div>
 
 									<div class="uk-margin">
 										<div class="uk-inline uk-width-1-1">
 											<!-- <label>FirstName</label> -->
 											<span uk-icon="icon: user" class="uk-form-icon"></span>
-											<Field name="firstName" type="text" placeholder="First Name" class="uk-input uk-form-large" :class="{ 'is-invalid': errors.firstName }" />
-											<div class="invalid-feedback">{{ errors.firstName }}</div>
+											<Field name="firstName" type="text" placeholder="First Name" class="uk-input uk-form-large" :class="{ 'uk-form-danger': errors.firstName }" />
 										</div>
+										<small class="uk-text-danger err-msg">{{ errors.firstName }}</small>
 									</div>
 
 									<div class="uk-margin">
 										<div class="uk-inline uk-width-1-1">
 											<!-- <label>LastName</label> -->
 											<span uk-icon="icon: user" class="uk-form-icon"></span>
-											<Field name="lastName" type="text" placeholder="Last Name" class="uk-input uk-form-large" :class="{ 'is-invalid': errors.lastName }" />
-											<div class="invalid-feedback">{{ errors.lastName }}</div>
+											<Field name="lastName" type="text" placeholder="Last Name" class="uk-input uk-form-large" :class="{ 'uk-form-danger': errors.lastName }" />
 										</div>
+										<small class="uk-text-danger err-msg">{{ errors.lastName }}</small>
 									</div>
 
 									<div class="uk-margin">
 										<div class="uk-inline uk-width-1-1">
 											<!-- <label>Password</label> -->
 											<span uk-icon="icon: lock" class="uk-form-icon"></span>
-											<Field name="password" type="password" placeholder="Password" class="uk-input uk-form-large" :class="{ 'is-invalid': errors.password }" />
-											<div class="invalid-feedback">{{ errors.password }}</div>
+											<Field name="password" type="password" placeholder="Password" class="uk-input uk-form-large" :class="{ 'uk-form-danger': errors.password }" />
 										</div>
+										<small class="uk-text-danger err-msg">{{ errors.password }}</small>
 									</div>
 
 									<div class="uk-margin">
@@ -70,7 +70,7 @@
 									</div>
 
 									<!-- <div class="uk-text-small uk-text-center">
-										Not registered? <router-link :to="{ path: '/register' }" class="uk-link-muted"><span>Create an account</span></router-link>
+										Not registered? <router-link :to="{ path: '/register' }" class="uk-link-reset"><span>Create an account</span></router-link>
 									</div> -->
 
 									<div v-if="errors.apiError" uk-alert class="uk-alert-danger">
@@ -91,13 +91,14 @@
 
 <script setup lang="ts">
 	import { onBeforeMount } from "@vue/runtime-core";
+	import { useRoute, useRouter } from "vue-router";
 	import { Form, Field } from "vee-validate";
 	import { storeToRefs } from "pinia";
-	import * as Yup from "yup";
+	import { object, string } from "yup";
 	import PageLoader from "@components/PageLoader.vue";
 	import PostHeader from "@components/PostHeader.vue";
 	import PostFooter from "@components/PostFooter.vue";
-	import { useRoute, useRouter } from "vue-router";
+	import { emailRegex } from "@models/user";
 	import { useAuthStore } from "@/stores";
 
 	const route = useRoute();
@@ -106,15 +107,19 @@
 	const authStore = useAuthStore();
 	const { isLogged } = storeToRefs(authStore);
 
-	const schema = Yup.object().shape({
-		username: Yup.string().required("Username is required"),
-		password: Yup.string().required("Password is required")
+	const schema = object().shape({
+		email: string().matches(emailRegex, { message: "Lütfen bilindik bir e-posta sağlayıcısı kullanın." }).required("E-posta giriniz").email("Geçerli bir e-posta adresi giriniz."),
+		firstName: string().required("Adınızı giriniz").min(3, "Adınız, minimum 3 karakter olmalıdır"),
+		lastName: string().required("Soyadınızı giriniz").min(2, "Soyadınız, minimum 2 karakter olmalıdır"),
+		username: string().required("Kullanıcı adınızı giriniz").min(6, "Kullanıcı adınız, minimum 6 karakter olmalıdır"),
+		password: string().required("Bir parola giriniz").min(8, "Şifreniz, minimum 8 karakter olmalıdır")
 	});
 
-	function onSubmit(values: any, { setErrors }: any) {
+	function onSubmit(values: any, { setErrors, resetForm }: any) {
 		const authStore = useAuthStore();
 		const { email, username, firstName, lastName, password } = values;
 
+		resetForm();
 		return authStore.register(email, username, firstName, lastName, password).catch((error) => setErrors({ apiError: error }));
 	}
 

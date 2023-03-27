@@ -21,75 +21,82 @@
 
 						<div id="contact-form-alert"></div>
 
-						<form id="contact-form" @submit.prevent="contact" class="uk-form-stacked">
+						<Form id="contact-form" @submit="onSubmit" :validation-schema="schema" v-slot="{ errors, isSubmitting, resetForm, meta }" class="uk-form-stacked">
 							<div class="uk-grid uk-grid-small uk-child-width-1-2@s">
 								<div>
 									<div class="uk-margin">
-										<label for="f_fullname" class="uk-form-label">Adınız Soyadınız*</label>
+										<label for="f_fullname" class="uk-form-label">Adınız Soyadınız *</label>
 										<div class="uk-form-controls uk-inline uk-width-1-1">
 											<span data-uk-icon="icon: user" class="uk-form-icon"></span>
-											<input type="text" v-model="contactForm.name" id="f_fullname" name="f_fullname" placeholder="Adınızı ve soyadınızı giriniz..." class="eb-input uk-input uk-border-rounded" />
+											<Field id="f_fullname" name="name" type="text" class="eb-input uk-input uk-border-rounded" :class="{ 'uk-form-danger': errors.name }" />
 										</div>
-										<small class="uk-text-danger err-msg" id="f_fullname_error"></small>
+										<small class="uk-text-danger err-msg">{{ errors.name }}</small>
 									</div>
 								</div>
 
 								<div>
 									<div class="uk-margin">
-										<label for="f_email" class="uk-form-label">E-Posta*</label>
+										<label for="f_email" class="uk-form-label">E-Posta *</label>
 										<div class="uk-form-controls uk-inline uk-width-1-1">
-											<span data-uk-icon="icon: user" class="uk-form-icon"></span>
-											<input type="email" v-model="contactForm.email" id="f_email" name="f_email" placeholder="E-Posta adresinizi giriniz..." class="eb-input uk-input uk-border-rounded" />
+											<span data-uk-icon="icon: google" class="uk-form-icon"></span>
+											<Field id="f_email" name="email" type="text" class="eb-input uk-input uk-border-rounded" :class="{ 'uk-form-danger': errors.email }" />
 										</div>
-										<small class="uk-text-danger err-msg" id="f_email_error"></small>
+										<small class="uk-text-danger err-msg">{{ errors.email }}</small>
 									</div>
 								</div>
 
 								<div>
 									<div class="uk-margin">
-										<label for="f_phone" class="uk-form-label">Telefon*</label>
+										<label for="f_phone" class="uk-form-label">Telefon *</label>
 										<div class="uk-form-controls uk-inline uk-width-1-1">
-											<span data-uk-icon="icon: phone" class="uk-form-icon"></span>
-											<input type="text" v-model="contactForm.phone" id="f_phone" name="f_phone" placeholder="Telefon numaranızı giriniz..." class="eb-input uk-input uk-border-rounded" />
+											<span data-uk-icon="icon: receiver" class="uk-form-icon"></span>
+											<Field id="f_phone" name="phone" type="text" class="eb-input uk-input uk-border-rounded" :class="{ 'uk-form-danger': errors.phone }" />
 										</div>
-										<small class="uk-text-danger err-msg" id="f_phone_error"></small>
+										<small class="uk-text-danger err-msg">{{ errors.phone }}</small>
 									</div>
 								</div>
 							</div>
 
 							<div class="uk-margin">
-								<label class="uk-form-label">Konu*</label>
+								<label class="uk-form-label">Konu *</label>
 								<div class="uk-form-controls uk-grid-small uk-child-width-auto uk-grid">
-									<label>
-										<input type="radio" v-model="contactForm.subject" name="f_subject" value="Genel" checked class="uk-radio" />
+									<label for="iSubjectGeneral">
+										<Field id="iSubjectGeneral" name="subject" type="radio" value="Genel" class="uk-radio" />
 										Genel
 									</label>
-									<label>
-										<input type="radio" v-model="contactForm.subject" name="f_subject" value="Proje Gözden Geçirmek" class="uk-radio" />
+									<label for="iSubjectProject">
+										<Field id="iSubjectProject" name="subject" type="radio" value="Proje Gözden Geçirmek" class="uk-radio" />
 										Proje Gözden Geçirmek
 									</label>
-									<label>
-										<input type="radio" v-model="contactForm.subject" name="f_subject" value="Sadece Tanışmak" class="uk-radio" />
+									<label for="iSubjectFriend">
+										<Field id="iSubjectFriend" name="subject" type="radio" value="Sadece Tanışmak" class="uk-radio" />
 										Sadece Tanışmak
 									</label>
 								</div>
+								<small class="uk-text-danger err-msg">{{ errors.subject }}</small>
 							</div>
 
 							<div class="uk-margin">
 								<label for="f_message" class="uk-form-label">Mesaj*</label>
 								<div class="uk-form-controls">
-									<textarea id="f_message" v-model="contactForm.message" name="f_message" rows="7" placeholder="Mesajınızı yazınız..." class="eb-input uk-textarea uk-border-rounded"></textarea>
+									<Field id="f_message" name="message" as="textarea" type="textarea" class="eb-input uk-textarea uk-border-rounded" rows="7" :class="{ 'uk-form-danger': errors.message }" />
 								</div>
-								<small id="f_message_error" class="uk-text-danger err-msg"></small>
+								<small class="uk-text-danger err-msg">{{ errors.message }}</small>
 							</div>
 
-							<div class="uk-margin-top">
-								<button type="submit" id="btn-contact-form" data-textreset="Şimdi Gönder" class="uk-button uk-button-primary uk-button-large eb-btn">
+							<div class="uk-margin-top uk-text-right">
+								<button v-if="meta.touched" type="reset" id="btn-contact-form-reset" data-textreset="Temizle" @click="resetForm()" class="uk-button uk-button-danger uk-button-large eb-btn uk-margin-small-right">
+									<span data-uk-icon="trash" class="uk-icon"></span>
+									<span class="uk-margin-small-left btn-text-wrap">Temizle</span>
+								</button>
+
+								<button type="submit" id="btn-contact-form" data-textreset="Şimdi Gönder" :disabled="isSubmitting" class="uk-button uk-button-primary uk-button-large eb-btn">
+									<span v-show="isSubmitting" class="spinner-border spinner-border-sm mr-1"></span>
 									<span class="uk-margin-small-right btn-text-wrap">Şimdi Gönder</span>
 									<span data-uk-icon="arrow-right" class="uk-icon"></span>
 								</button>
 							</div>
-						</form>
+						</Form>
 					</div>
 				</div>
 
@@ -128,17 +135,25 @@
 </template>
 
 <script setup lang="ts">
-	import { ref, reactive, computed } from "@vue/reactivity";
-	// import { onMounted } from "@vue/runtime-core";
+	import { ref, computed } from "@vue/reactivity";
+	import { Form, Field } from "vee-validate";
 	import { useMouseInElement } from "@vueuse/core";
-	// import { init_contact_form } from "@plugins/app-plugins";
+	import { object, string } from "yup";
 	import { ContactFormValues } from "@models/site";
+	import { emailRegex } from "@models/user";
 	import { useAuthStore } from "@/stores";
 	import toast from "@plugins/toast";
 
+	const schema = object().shape({
+		name: string().required("Ad ve soyad giriniz"),
+		email: string().matches(emailRegex, { message: "Lütfen bilindik bir e-posta sağlayıcısı kullanın." }).required("E-posta giriniz").email("Geçerli bir e-posta adresi giriniz."),
+		phone: string().required("Telefon numarası giriniz"),
+		subject: string().required("Konu seçiniz"),
+		message: string().required("Mesajınızı giriniz").min(10, "Mesajınız, minimum 10 karakter olmalıdır")
+	});
+
 	const target = ref(null);
 	const authStore = useAuthStore();
-	const contactForm = reactive<ContactFormValues>({ name: "", email: "", phone: "", subject: "", message: "" });
 	const { elementX, elementY, isOutside, elementHeight, elementWidth } = useMouseInElement(target);
 
 	// Todo: Bunu generic hale nasıl getiririz düşünülecek.
@@ -149,29 +164,16 @@
 		return isOutside.value ? "" : `perspective(${elementWidth.value}px) rotateX(${rX}deg) rotateY(${rY}deg)`;
 	});
 
-	const contact = () => {
-		let resObj = { contactForm: JSON.stringify(contactForm, null, 2), error: "" };
+	const onSubmit = (values: any, { resetForm }: any) => {
 		authStore
-			.contact(contactForm)
+			.contact(values as ContactFormValues)
 			.then((data: unknown) => {
 				console.log(JSON.stringify(data, null, 2));
 				toast({ message: `<span uk-icon='icon: check'></span> Formunuz başarıyla gönderildi, kısa zamanda bir cevap yazacağım. Sağlıcakla kalın. :)`, status: "success" });
 			})
-			.catch((error) => {
-				if (error) {
-					resObj.error = JSON.stringify(error, null, 2);
-					alert(resObj);
-					toast({ message: `<span uk-icon='icon: refresh'></span> E-Posta gönderilirken bir hata oluştu. Lütfen daha sonra tekrar deneyiniz.`, status: "danger" });
-				}
-			})
-			.finally(() => {
-				console.log(resObj);
-			});
+			.catch((error) => error && toast({ message: `<span uk-icon='icon: refresh'></span> E-Posta gönderilirken bir hata oluştu. Lütfen daha sonra tekrar deneyiniz.`, status: "danger" }))
+			.finally(() => resetForm());
 	};
-
-	// onMounted(async () => {
-	// 	init_contact_form();
-	// });
 </script>
 
 <style scoped></style>
