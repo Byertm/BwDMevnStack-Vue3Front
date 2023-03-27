@@ -6750,10 +6750,10 @@ ul.uk-nav-sub {
 ========================================================================== */
 .uk-notification-message {
   position: relative;
-  padding: 15px;
+  padding: 0.8rem;
   background: #f8f8f8;
   color: #000;
-  font-size: 1.25rem;
+  font-size: 0.8rem;
   line-height: 1.4;
   cursor: pointer;
 }
