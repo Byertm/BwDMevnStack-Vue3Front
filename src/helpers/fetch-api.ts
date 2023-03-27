@@ -1,7 +1,7 @@
 import axios from 'axios';
 import type { AxiosRequestConfig, AxiosResponse } from 'axios';
 import { useAxios } from '@vueuse/integrations/useAxios';
-import { computed, reactive, shallowRef } from 'vue';
+import { computed, reactive, shallowRef } from '@vue/reactivity';
 import { getLS, getLSWithParse, setLSWithModel, setLSWithStringfyForData } from '@plugins/index';
 import { API_URL } from '@plugins/mixins';
 

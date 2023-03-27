@@ -1,4 +1,4 @@
-import { ref } from 'vue';
+import { ref } from '@vue/reactivity';
 
 const initialTheme: string = 'light;';
 export const currentTheme = ref<string>(initialTheme);
