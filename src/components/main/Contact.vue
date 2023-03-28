@@ -102,10 +102,12 @@
 
 				<div class="uk-width-1-4@m eb-section-padding eb-contact-right">
 					<p class="uk-margin-medium-bottom uk-visible@m">
+						<!-- src="/assets/img/empty.png" -->
 						<img
 							ref="target"
-							src="/assets/img/empty.png"
-							data-src="/assets/img/profile2.jpg"
+							:src="getApiImageByImageUrl(owner?.getSiteOwner.info?.about?.imageUrl || null)"
+							:data-src="getApiImageByImageUrl(owner?.getSiteOwner.info?.about?.imageUrl || null)"
+							crossorigin="anonymous"
 							width="500"
 							height="500"
 							data-uk-img
@@ -135,14 +137,19 @@
 </template>
 
 <script setup lang="ts">
-	import { ref, computed } from "@vue/reactivity";
-	import { Form, Field } from "vee-validate";
-	import { useMouseInElement } from "@vueuse/core";
 	import { object, string } from "yup";
-	import { ContactFormValues } from "@models/site";
+	import { Form, Field } from "vee-validate";
+	import { inject } from "@vue/runtime-core";
+	import { ref, computed } from "@vue/reactivity";
+	import { useMouseInElement } from "@vueuse/core";
+	import { ContactFormValues, SiteInjectionKeys, TSiteLogo, TSiteOwner } from "@models/site";
+	import { getApiImageByImageUrl } from "@plugins/mixins";
 	import { emailRegex } from "@models/user";
 	import { useAuthStore } from "@/stores";
 	import toast from "@plugins/toast";
+
+	const owner = inject<TSiteOwner>(SiteInjectionKeys.ownerKey);
+	const logo = inject<TSiteLogo>(SiteInjectionKeys.logoKey);
 
 	const schema = object().shape({
 		name: string().required("Ad ve soyad giriniz"),

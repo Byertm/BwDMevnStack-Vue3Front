@@ -74,7 +74,7 @@ export interface ISiteLogo {
 export interface ISite extends IDocument {
 	owner?: ISiteOwner;
 	logo?: ISiteLogo;
-	sections?: Array<ISiteSection>;
+	// sections?: Array<ISiteSection>;
 }
 
 export const SiteInjectionKeys = { siteKey: Symbol(), ownerKey: Symbol(), logoKey: Symbol(), sectionKey: Symbol(), sectionsKey: Symbol() };

@@ -42,6 +42,6 @@
 	// const { getSection } = storeToRefs(sectionStore);
 
 	onBeforeMount(() => {
-		console.log("sections", sections);
+		// console.log("sections", sections);
 	});
 </script>

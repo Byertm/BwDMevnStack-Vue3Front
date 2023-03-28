@@ -50,6 +50,6 @@ export const useSiteStore = defineStore({
 
 		getSiteOwner: (state) => (!!state?.site?.data?.owner ? (state.site.data.owner as ISiteOwner) : {} || {}),
 		getSiteLogo: (state) => (!!state?.site?.data?.logo ? (state.site.data.logo as ISiteLogo) : {} || {}),
-		getSiteSections: (state) => (!!state?.site?.data?.sections?.length ? (state.site.data.sections as Array<ISiteSection>) : [] || [])
+		// getSiteSections: (state) => (!!state?.site?.data?.sections?.length ? (state.site.data.sections as Array<ISiteSection>) : [] || [])
 	}
 });
