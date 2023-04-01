@@ -2,7 +2,7 @@ import axios from 'axios';
 import type { AxiosRequestConfig, AxiosResponse } from 'axios';
 import { useAxios } from '@vueuse/integrations/useAxios';
 import { computed, reactive, shallowRef } from '@vue/reactivity';
-import { getLS, getLSWithParse, setLSWithModel, setLSWithStringfyForData } from '@plugins/index';
+import { getLS, setLSWithModel, setLSWithStringfyForData } from '@plugins/index';
 import { API_URL } from '@plugins/mixins';
 
 export enum EFetchTypes {
@@ -22,10 +22,7 @@ export type TFetchTypes = `${EFetchTypes}`;
 const instance = axios.create({ baseURL: API_URL, headers: { 'Content-type': 'application/json' } });
 
 function refreshToken() {
-	const user = getLSWithParse('user');
-	// ! Todo: Buradaki email kalkacak başba bir yol düşünülecek.
-	const userEmail = !!user?.email ? user.email : 'ersin@mail.com';
-	return instance.post('refreshToken', { email: userEmail, refreshToken: getLS('refreshToken') });
+	return instance.post('refreshToken', { refreshToken: getLS('refreshToken') });
 }
 
 instance.interceptors.request.use(
