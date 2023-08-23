@@ -95,8 +95,10 @@ export const useFetch = async (url: string, config: CustomAxiosRequestConfig = {
 			const result = await instance.request(options);
 			fetchData.response = result;
 			fetchData.data = result.data;
-		} catch (ex: unknown) {
-			fetchData.error = ex;
+		} catch (ex: any) {
+			// fetchData.error = ex;
+			fetchData.error = ex?.response?.data;
+			throw new Error(JSON.stringify(ex));
 		} finally {
 			fetchData.loading = false;
 		}

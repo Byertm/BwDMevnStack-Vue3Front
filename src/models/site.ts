@@ -77,10 +77,26 @@ export interface ISite extends IDocument {
 	// sections?: Array<ISiteSection>;
 }
 
-export const SiteInjectionKeys = { siteKey: Symbol(), ownerKey: Symbol(), logoKey: Symbol(), sectionKey: Symbol(), sectionsKey: Symbol() };
+export interface ILogoMock {
+	getSiteLogo: ISiteLogo;
+	isSiteLogo: boolean;
+}
+
+export const SiteInjectionKeys = {
+	siteKey: Symbol('site'),
+	siteWebAddressKey: Symbol('siteWebAddress'),
+	ownerKey: Symbol('owner'),
+	logoKey: Symbol('logo'),
+	sectionKey: Symbol('section'),
+	sectionsKey: Symbol('sections')
+};
 
 export type TSiteOwner = { getSiteOwner: ISiteOwner; isSiteOwner: boolean };
 export type TSiteLogo = { getSiteLogo: ISiteLogo; isSiteLogo: boolean };
+
+export const SiteLogoText = import.meta.env.VITE_SITE_LOGO_TEXT || 'EBiltekin';
+export const SiteLogoImageUrl = import.meta.env.VITE_SITE_LOGO_IMAGEURL; // || 'assets/img/profile2.jpg';
+export const LogoMock: ILogoMock = { getSiteLogo: { text: SiteLogoText, imageUrl: SiteLogoImageUrl }, isSiteLogo: true };
 
 export type ContactFormValues = { name: string; email: string; phone: string; subject: string; message: string };
 

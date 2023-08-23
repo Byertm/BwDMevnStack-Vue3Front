@@ -4,7 +4,7 @@ import { useFetch } from '@helpers/index';
 // Todo: Axios Instance a arabir api pathler için instance oluştur.
 // Todo: Axios için signal (AbortController) ve cancelToken kullanımını düşün.
 const getApiUrl = (apiUrl: string) => {
-	return (...args: any) => {
+	return (...args: any): string => {
 		// let apiUrl: string = 'api/post';
 		if (!!args && !!args?.length) return `${apiUrl}/${args[0]}`;
 		return apiUrl;

@@ -12,3 +12,4 @@ export type { ITestimonial } from '@models/testimonial';
 export type { IUser } from '@models/user';
 export type { ISite } from '@models/site';
 export type { ISection } from '@models/section';
+export type { IErrorPage, IErrorPageBackButton, IHttpClientCheck, IHttpClientHealth } from '@models/error';
