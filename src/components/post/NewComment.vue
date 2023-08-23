@@ -48,12 +48,12 @@
 			</template>
 
 			<div class="uk-margin-top uk-text-right">
-				<button v-if="meta.touched" type="reset" id="btn-contact-form-reset" data-textreset="Temizle" @click="resetForm()" class="uk-button uk-button-danger uk-button-large eb-btn uk-margin-small-right">
+				<button v-if="meta.touched" type="reset" id="btn-contact-form-reset" data-text-reset="Temizle" @click="resetForm()" class="uk-button uk-button-danger uk-button-large eb-btn uk-margin-small-right">
 					<span data-uk-icon="trash" class="uk-icon"></span>
 					<span class="uk-margin-small-left btn-text-wrap">Temizle</span>
 				</button>
 
-				<button type="submit" id="btn-contact-form" data-textreset="Yorumunu Gönder" :disabled="isSubmitting" class="uk-button uk-button-primary uk-button-large eb-btn">
+				<button type="submit" id="btn-contact-form" data-text-reset="Yorumunu Gönder" :disabled="isSubmitting" class="uk-button uk-button-primary uk-button-large eb-btn">
 					<span v-show="isSubmitting" class="spinner-border spinner-border-sm mr-1"></span>
 					<span class="uk-margin-small-right btn-text-wrap">Yorumunu Gönder</span>
 					<span data-uk-icon="arrow-right" class="uk-icon"></span>

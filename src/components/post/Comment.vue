@@ -51,7 +51,7 @@
 
 	const isChildren = computed(() => props.comment?.children?.length);
 
-	const isShowNewComment = ref(false);
+	const isShowNewComment = ref<boolean>(false);
 
 	const showAnswerComment = () => {
 		isShowNewComment.value = !isShowNewComment.value;

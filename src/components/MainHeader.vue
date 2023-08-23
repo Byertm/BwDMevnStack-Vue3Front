@@ -33,10 +33,11 @@
 
 		<!-- main menu -->
 		<nav id="main-menu" class="eb-main-menu">
-			<div class="uk-container" data-uk-navbar>
+			<div data-uk-navbar class="uk-container">
 				<div class="uk-navbar-left">
 					<router-link :to="{ path: '/' }" class="eb-logo uk-navbar-item uk-logo">
-						<span>{{ logo?.getSiteLogo?.text }}</span>
+						<span v-if="logo?.isSiteLogo">{{ logo?.getSiteLogo?.text }}</span>
+						<span v-else>{{ mockLogo?.getSiteLogo?.text }}</span>
 					</router-link>
 				</div>
 
@@ -47,7 +48,7 @@
 					</a>
 				</div>
 
-				<div id="menucollapse" class="eb-menu-toggle-wrapper">
+				<div id="menuCollapse" class="eb-menu-toggle-wrapper">
 					<div class="uk-navbar-center">
 						<ul data-uk-scrollspy-nav="closest: li; scroll: false; offset: 79" class="uk-navbar-nav">
 							<li>
@@ -87,13 +88,14 @@
 	import { ref, toRefs } from "@vue/reactivity";
 	import { inject, onMounted, onUnmounted } from "@vue/runtime-core";
 	import { init_menu_toggle, init_inner_link, init_typed } from "@plugins/app-plugins";
-	import { TSiteLogo, SiteInjectionKeys, TSiteOwner } from "@models/site";
-	import AuthNav from "./layout/AuthNav.vue";
+	import { TSiteLogo, SiteInjectionKeys, TSiteOwner, ILogoMock, LogoMock } from "@models/site";
+	import AuthNav from "@components/layout/AuthNav.vue";
 	import type Typed from "typed.js";
 
 	// const site = inject(SiteInjectionKeys.siteKey);
 	const owner = inject<TSiteOwner>(SiteInjectionKeys.ownerKey);
 	const logo = inject<TSiteLogo>(SiteInjectionKeys.logoKey);
+	const mockLogo: ILogoMock = LogoMock;
 
 	const props = defineProps<{ isShowHome: boolean }>();
 
@@ -103,7 +105,7 @@
 
 	onMounted(() => {
 		const typedData: Array<string> = [...(owner?.getSiteOwner?.info?.titles?.filter((title) => !!title.name).map((title) => title.name!) || [])];
-		if (isHome.value) isTyped.value = init_typed(typedData);
+		if (isHome.value) isTyped.value = init_typed(!!typedData?.length ? typedData : undefined);
 
 		init_menu_toggle();
 

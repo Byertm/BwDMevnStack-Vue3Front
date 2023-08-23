@@ -54,11 +54,11 @@
 	import { useRoute } from "vue-router";
 	import { computed, ref } from "@vue/reactivity";
 	import { onMounted, watch } from "@vue/runtime-core";
+	import Item from "@components/post/Item.vue";
 	import CS_Sidebar from "@/components/sidebar/Sidebar.vue";
 	import type { Article } from "@plugins/mixins";
 	import { formatPost } from "@plugins/mixins";
 	import { usePostStore } from "@/stores";
-	import Item from "./post/Item.vue";
 
 	const route = useRoute();
 	const postStore = usePostStore();

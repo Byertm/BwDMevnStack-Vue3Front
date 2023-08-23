@@ -2,7 +2,7 @@
 	<div>
 		<h1 class="eb-section-title">{{ post.title }}</h1>
 
-		<div class="eb-blog-item-meta uk-margin-bottom uk-text-muted">
+		<small class="eb-blog-item-meta uk-margin-bottom uk-text-muted uk-text-right">
 			<div>
 				<span>{{ post.date }}</span>
 			</div>
@@ -16,7 +16,7 @@
 			<div><span data-uk-icon="comment"></span> {{ post.comment }}</div>
 
 			<div><span data-uk-icon="heart"></span> {{ post.like }}</div>
-		</div>
+		</small>
 
 		<div>
 			<img v-if="post.image" :src="post.image" alt="" crossorigin="anonymous" class="eb-img-featured" />

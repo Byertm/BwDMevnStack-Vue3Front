@@ -85,14 +85,14 @@
 							</div>
 
 							<div class="uk-margin-top uk-text-right">
-								<button v-if="meta.touched" type="reset" id="btn-contact-form-reset" data-textreset="Temizle" @click="resetForm()" class="uk-button uk-button-danger uk-button-large eb-btn uk-margin-small-right">
+								<button v-if="meta.touched" type="reset" id="btn-contact-form-reset" data-text-reset="Temizle" @click="resetForm()" class="uk-button uk-button-danger uk-button-large eb-btn uk-margin-small-right">
 									<span data-uk-icon="trash" class="uk-icon"></span>
-									<span class="uk-margin-small-left btn-text-wrap">Temizle</span>
+									<span class="uk-margin-small-left btn-text-wrap uk-visible@s">Temizle</span>
 								</button>
 
-								<button type="submit" id="btn-contact-form" data-textreset="Şimdi Gönder" :disabled="isSubmitting" class="uk-button uk-button-primary uk-button-large eb-btn">
+								<button type="submit" id="btn-contact-form" data-text-reset="Şimdi Gönder" :disabled="isSubmitting" class="uk-button uk-button-primary uk-button-large eb-btn">
 									<span v-show="isSubmitting" class="spinner-border spinner-border-sm mr-1"></span>
-									<span class="uk-margin-small-right btn-text-wrap">Şimdi Gönder</span>
+									<span class="uk-margin-small-right btn-text-wrap uk-visible@s">Şimdi Gönder</span>
 									<span data-uk-icon="arrow-right" class="uk-icon"></span>
 								</button>
 							</div>
@@ -101,12 +101,12 @@
 				</div>
 
 				<div class="uk-width-1-4@m eb-section-padding eb-contact-right">
-					<p class="uk-margin-medium-bottom uk-visible@m">
+					<p v-if="getApiImageByImageUrl(owner?.getSiteOwner.info?.about?.imageUrl || null) || getAssetsImageByImageUrl(mockLogo?.getSiteLogo?.imageUrl || null)" class="uk-margin-medium-bottom uk-visible@m">
 						<!-- src="/assets/img/empty.png" -->
 						<img
 							ref="target"
-							:src="getApiImageByImageUrl(owner?.getSiteOwner.info?.about?.imageUrl || null)"
-							:data-src="getApiImageByImageUrl(owner?.getSiteOwner.info?.about?.imageUrl || null)"
+							:src="getApiImageByImageUrl(owner?.getSiteOwner.info?.about?.imageUrl || null) || getAssetsImageByImageUrl(mockLogo?.getSiteLogo?.imageUrl || null)"
+							:data-src="getApiImageByImageUrl(owner?.getSiteOwner.info?.about?.imageUrl || null) || getAssetsImageByImageUrl(mockLogo?.getSiteLogo?.imageUrl || null)"
 							crossorigin="anonymous"
 							width="500"
 							height="500"
@@ -142,14 +142,15 @@
 	import { inject } from "@vue/runtime-core";
 	import { ref, computed } from "@vue/reactivity";
 	import { useMouseInElement } from "@vueuse/core";
-	import { ContactFormValues, SiteInjectionKeys, TSiteLogo, TSiteOwner } from "@models/site";
-	import { getApiImageByImageUrl } from "@plugins/mixins";
+	import { ContactFormValues, SiteInjectionKeys, TSiteLogo, TSiteOwner, ILogoMock, LogoMock } from "@models/site";
+	import { getApiImageByImageUrl, getAssetsImageByImageUrl } from "@plugins/mixins";
 	import { emailRegex } from "@models/user";
 	import { useAuthStore } from "@/stores";
 	import toast from "@plugins/toast";
 
 	const owner = inject<TSiteOwner>(SiteInjectionKeys.ownerKey);
 	const logo = inject<TSiteLogo>(SiteInjectionKeys.logoKey);
+	const mockLogo: ILogoMock = LogoMock;
 
 	const schema = object().shape({
 		name: string().required("Ad ve soyad giriniz"),
@@ -183,4 +184,12 @@
 	};
 </script>
 
-<style scoped></style>
+<style lang="scss" scoped>
+	.eb-btn {
+		min-width: 0;
+
+		@media screen and (min-width: 640px) {
+			min-width: 180px;
+		}
+	}
+</style>

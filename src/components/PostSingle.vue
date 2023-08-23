@@ -1,5 +1,5 @@
 <template>
-	<main class="eb-main-content">
+	<main v-if="isPost && !!post" class="eb-main-content">
 		<section>
 			<div class="eb-section-point-wrapper">
 				<div class="uk-container">
@@ -32,31 +32,38 @@
 <script setup lang="ts">
 	import { storeToRefs } from "pinia";
 	import { ref } from "@vue/reactivity";
-	import { onMounted, watch } from "@vue/runtime-core";
-	import { onBeforeRouteLeave, onBeforeRouteUpdate, useRoute } from "vue-router";
+	import { watch, onMounted } from "@vue/runtime-core";
+	import { onBeforeRouteLeave, onBeforeRouteUpdate, useRoute, useRouter } from "vue-router";
+	import RecommendedPost from "@components/post/RecommendedPost.vue";
 	import CS_Sidebar from "@/components/sidebar/Sidebar.vue";
-	import RecommendedPost from "./post/RecommendedPost.vue";
 	import NewComment from "@components/post/NewComment.vue";
 	import Comments from "@components/post/Comments.vue";
 	import Detail from "@components/post/Detail.vue";
 	import type { Article } from "@plugins/mixins";
 	import { formatPost } from "@plugins/mixins";
-	import { usePostStore } from "@/stores";
+	import { usePostStore, useSiteStore } from "@/stores";
+	// import { SiteInjectionKeys } from "@models/site";
 
 	const route = useRoute();
+	const router = useRouter();
 
 	const postStore = usePostStore();
+	const siteStore = useSiteStore();
 
-	const { post: postAllInfo, getPost, isPost, getPosts, isPosts, getRecommendedPosts, isRecommendedPosts } = storeToRefs(postStore);
+	const { post: postAllInfo, getPost, isPost, isEmptyPost, getPosts, isPosts, getRecommendedPosts, isRecommendedPosts } = storeToRefs(postStore);
+	const { getSiteWebAddress, isSiteWebAddress } = storeToRefs(siteStore);
 
-	const post = ref<Article>({} as Article);
+	const post = ref<Article | null>(null);
 	const posts = ref<Article[]>([]);
 	const recommendedPosts = ref<Article[]>([]);
+
+	// const siteWebAddress = inject<any>(SiteInjectionKeys.siteWebAddressKey);
 
 	let slug: string = "";
 
 	watch([() => getPost.value, () => isPost.value], () => {
-		post.value = formatPost(getPost.value) || ({} as Article);
+		// console.log({ getPost: getPost.value, isPost: isPost.value });
+		if (!!isPosts.value && !isEmptyPost.value) post.value = formatPost(getPost.value) || null;
 	});
 
 	watch([() => getPosts.value, () => isPosts.value], () => {
@@ -68,11 +75,13 @@
 	});
 
 	onBeforeRouteLeave(async (to, from) => {
+		// console.log({ to, from, getSiteWebAddress: getSiteWebAddress.value });
 		if (to.params.slug && to.params.slug !== from.params.slug) {
-			slug = <string>route?.params?.slug;
-			await postStore.getBySlug(slug);
+			slug = <string>to?.params?.slug;
+			if (!!slug) await postStore.getBySlug(slug);
 		}
-		// else if (!to.params.slug && !to.fullPath.startsWith(location.origin)) {
+		// else if (!to.params.slug && getSiteWebAddress.value?.startsWith?.(location.origin)) {
+		// 	// && !to.fullPath.startsWith(location.origin)
 		// 	const answer = window.confirm("Do you really want to leave? you have unsaved changes!");
 		// 	// Cancel the navigation and stay on the same page
 		// 	if (!answer) return false;
@@ -81,16 +90,19 @@
 
 	onBeforeRouteUpdate(async (to, from) => {
 		if (to.params.slug !== from.params.slug) {
-			slug = <string>route?.params?.slug;
-			// if (typeof postAllInfo?.value?.loading === "boolean")
-			await postStore.setDefaultPost();
-			await postStore.getBySlug(slug);
+			slug = <string>to?.params?.slug;
+			if (!!slug) await postStore.getBySlug(slug);
 		}
 	});
 
 	onMounted(async () => {
 		slug = <string>route?.params?.slug;
 		await postStore.getBySlug(slug);
+
+		if (!isSiteWebAddress.value) siteStore.setSiteWebAddress();
+
+		// if (!isPost.value) router.push({ path: "/error" });
+		if (!isPost.value) router.push({ path: "/error", params: { title: "test", subTitle: "test test" } });
 	});
 </script>
 

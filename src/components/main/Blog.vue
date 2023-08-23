@@ -51,7 +51,7 @@
 	watch([() => getPosts.value, () => isPosts.value], () => setPostsData());
 
 	onMounted(async () => {
-		if (isEmptyPosts.value) postStore.getAll();
+		if (isEmptyPosts.value) await postStore.getAll();
 
 		setPostsData();
 	});

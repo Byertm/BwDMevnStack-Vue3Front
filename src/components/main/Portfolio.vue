@@ -101,10 +101,10 @@
 								</li>
 							</ul>
 
-							<div ref="elShowPortfolioDetail" id="show-portofolio-details" data-uk-modal class="uk-modal-full">
+							<div ref="elShowPortfolioDetail" id="show-portfolio-details" data-uk-modal class="uk-modal-full">
 								<div class="uk-modal-dialog">
 									<button type="button" data-uk-close class="uk-modal-close-full uk-close-large"></button>
-									<div ref="elPortfolioDetail" id="portofolio-details" data-uk-height-viewport class="uk-animation-toggle uk-overflow-hidden"></div>
+									<div ref="elPortfolioDetail" id="portfolio-details" data-uk-height-viewport class="uk-animation-toggle uk-overflow-hidden"></div>
 								</div>
 							</div>
 						</div>

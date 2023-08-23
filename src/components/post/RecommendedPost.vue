@@ -16,10 +16,10 @@
 	import { storeToRefs } from "pinia";
 	import { ref } from "@vue/reactivity";
 	import { onMounted, watch } from "@vue/runtime-core";
+	import Item from "@components/post/Item.vue";
 	import type { Article } from "@plugins/mixins";
 	import { formatPost } from "@plugins/mixins";
 	import { usePostStore } from "@/stores";
-	import Item from "./Item.vue";
 
 	const postStore = usePostStore();
 

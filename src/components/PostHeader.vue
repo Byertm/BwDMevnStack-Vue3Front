@@ -15,7 +15,7 @@
 					</a>
 				</div>
 
-				<div id="menucollapse" class="eb-menu-toggle-wrapper">
+				<div id="menuCollapse" class="eb-menu-toggle-wrapper">
 					<div class="uk-navbar-center">
 						<ul class="uk-navbar-nav">
 							<li>
@@ -53,7 +53,7 @@
 	import { RouterLink } from "vue-router";
 	import { onMounted } from "@vue/runtime-core";
 	import { init_menu_toggle, init_inner_link } from "@plugins/app-plugins";
-	import AuthNav from "./layout/AuthNav.vue";
+	import AuthNav from "@components/layout/AuthNav.vue";
 
 	const name = "Register";
 

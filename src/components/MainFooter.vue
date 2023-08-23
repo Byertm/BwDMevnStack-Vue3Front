@@ -7,7 +7,7 @@
 			<div id="waveHorizontal3" data-uk-img data-src="/assets/img/bg/wave3.svg" class="waveHorizontal"></div>
 		</div>
 
-		<router-link :to="{ path: `/#app` }" data-uk-totop class="uk-visible eb-totop eb-inner-link"></router-link>
+		<router-link :to="{ path: `/#app` }" data-uk-totop class="uk-visible eb-totop eb-inner-link" :class="{ fixed: isFixed }"></router-link>
 
 		<div class="eb-main-footer">
 			<div class="uk-container">
@@ -32,4 +32,29 @@
 
 <script setup lang="ts">
 	import { RouterLink } from "vue-router";
+	import { useWindowScroll, useWindowSize } from "@vueuse/core";
+	import { computed } from "@vue/reactivity";
+
+	const { y } = useWindowScroll();
+	const { height: wH } = useWindowSize();
+	const isFixed = computed(() => y.value > wH.value);
 </script>
+
+<style lang="scss" scoped>
+	.eb-totop {
+		&.fixed {
+			position: fixed;
+			top: auto;
+			right: 1rem;
+			bottom: 1rem;
+			padding-top: 0.75rem;
+
+			&:hover {
+				color: #05182c !important;
+				background-color: #ffffff;
+				border: 1px solid #1e87f0;
+				transform: scale(1);
+			}
+		}
+	}
+</style>

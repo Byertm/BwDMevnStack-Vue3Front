@@ -18,7 +18,7 @@
 	import { onMounted, watch } from "@vue/runtime-core";
 	import { useCommentStore, usePostStore } from "@/stores";
 	import { IComment } from "@models/comment";
-	import Comment from "./Comment.vue";
+	import Comment from "@components/post/Comment.vue";
 
 	const commentStore = useCommentStore();
 	const postStore = usePostStore();

@@ -35,15 +35,15 @@
 
 	const postStore = usePostStore();
 
-	const { getPosts, isEmptyPosts, isErrorPosts, isPosts } = storeToRefs(postStore);
+	const { getPosts, isEmptyPosts, isPosts, isPost, getPost, post: storePost } = storeToRefs(postStore);
 
 	const posts = ref<Article[]>([]);
 
 	const setPostsData = () => {
-		posts.value = getPosts.value?.map((post: any) => formatPost(post)) || [];
+		posts.value = getPosts.value.filter((post) => !isPost.value || post.id !== storePost.value.data?.id)?.map((post: any) => formatPost(post)) || [];
 	};
 
-	watch([() => getPosts.value, () => isPosts.value], () => setPostsData());
+	watch([() => getPost.value, () => isPost.value, () => getPosts.value, () => isPosts.value], () => setPostsData());
 
 	onMounted(async () => {
 		if (isEmptyPosts.value) await postStore.getAll();
