@@ -31,7 +31,8 @@ export interface IPostOld {
 	creator?: string;
 }
 
-export const formatDate = (dateString: string | Date) => {
+export const formatDate = (dateString: string | Date | undefined): string => {
+	if (!dateString) return '';
 	const date = new Date(dateString);
 	return new Intl.DateTimeFormat('default', { dateStyle: 'long' })?.format?.(date);
 };
@@ -41,8 +42,12 @@ export const formatDateGetMonthAndYear = (dateString: string | Date) => {
 	return new Intl.DateTimeFormat('default', { month: 'long', year: 'numeric' })?.format?.(date);
 };
 
+export const getAssetsImageByImageUrl = (imageUrl: string | null) => {
+	return imageUrl ? `/${imageUrl}` : '';
+};
+
 export const getApiImageByImageUrl = (imageUrl: string | null) => {
-	return `${API_URL}/${imageUrl}`;
+	return imageUrl ? `${API_URL}/${imageUrl}` : '';
 };
 
 export const formatEducation = (education: any) => {

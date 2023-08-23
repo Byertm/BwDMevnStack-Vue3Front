@@ -8,7 +8,7 @@
 	$(document).ready(function () {
 		setTimeout(() => {
 			init_full_height();
-			// init_pageloader();
+			// init_page_loader();
 			// init_typed();
 			init_menu_toggle();
 			init_inner_link();
@@ -63,7 +63,7 @@
 	}
 
 	function init_menu_toggle() {
-		$('.eb-menu-togggle').on('click', function () {
+		$('.eb-menu-toggle').on('click', function () {
 			$('#app').toggleClass('eb-menu-open');
 		});
 
@@ -72,7 +72,7 @@
 			return false;
 		});
 
-		$('#menucollapse .uk-navbar-nav a').on('click', function () {
+		$('#menuCollapse .uk-navbar-nav a').on('click', function () {
 			$('#main-menu').toggleClass('open-menu');
 		});
 	}
@@ -93,12 +93,12 @@
 		}
 	}
 
-	function init_pageloader() {
-		let $pageloader = $('#pageloader');
+	function init_page_loader() {
+		let $pageLoader = $('#pageLoader');
 		setTimeout(function () {
-			$pageloader.addClass('uk-transition-fade');
+			$pageLoader.addClass('uk-transition-fade');
 			setTimeout(function () {
-				$pageloader.addClass('page-is-loaded');
+				$pageLoader.addClass('page-is-loaded');
 				init_check_hash_url();
 			}, 400);
 		}, 300);
@@ -181,7 +181,7 @@
 			$btn.append('<div uk-spinner></div>');
 		} else {
 			$btn.removeAttr('disabled');
-			$btn.find('.btn-text-wrap').text($btn.attr('data-textreset'));
+			$btn.find('.btn-text-wrap').text($btn.attr('data-text-reset'));
 			$btn.find('.uk-icon').removeAttr('hidden');
 			$btn.find('div[uk-spinner]').remove();
 		}
@@ -195,8 +195,8 @@
 	function init_portfolio_details() {
 		$('.show-portfolio').on('click', function () {
 			let $this = $(this);
-			let $el = $('#show-portofolio-details');
-			let $wrap = $('#portofolio-details');
+			let $el = $('#show-portfolio-details');
+			let $wrap = $('#portfolio-details');
 			$wrap.addClass('uk-animation-toggle');
 			UIkit.modal($el).show();
 

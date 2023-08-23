@@ -5,7 +5,7 @@
 <script setup lang="ts">
 	import { RouterView } from "vue-router";
 	import { onMounted, onUnmounted } from "@vue/runtime-core";
-	import { is_scroll, is_resize, myscroll, myresize, init_full_height, init_update_uikit, init_scroll } from "@plugins/app-plugins";
+	import { is_scroll, is_resize, my_scroll, my_resize, init_full_height, init_update_uikit, init_scroll } from "@plugins/app-plugins";
 
 	let isScroll: boolean = false;
 	let isResize: boolean = false;
@@ -39,8 +39,8 @@
 
 		isScroll = is_scroll;
 		isResize = is_resize;
-		myScroll = myscroll;
-		myResize = myresize;
+		myScroll = my_scroll;
+		myResize = my_resize;
 
 		// Run function when window on scroll
 		window.addEventListener("scroll", onHandleScroll);

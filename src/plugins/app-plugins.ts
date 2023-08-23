@@ -9,8 +9,8 @@ UIkit.use(Icons);
 
 export let is_scroll: boolean = false;
 export let is_resize: boolean = false;
-export let myscroll: number;
-export let myresize: number;
+export let my_scroll: number;
+export let my_resize: number;
 
 //============================================
 //initial functions
@@ -18,7 +18,7 @@ export let myresize: number;
 
 export function init_chart_circle() {
 	document.querySelectorAll('.circle-progress').forEach((el: Element) => {
-		// if (!!el && $.isFunction($.fn.circleProggress)) $(el).circleProgress({ value: el.getAttribute('data-value') });
+		// if (!!el && $.isFunction($.fn.circleProgress)) $(el).circleProgress({ value: el.getAttribute('data-value') });
 		if (!!el) {
 			let elData: number = !!el.getAttribute('data-value') ? parseFloat(<string>el.getAttribute('data-value')) : 0;
 		}
@@ -26,7 +26,7 @@ export function init_chart_circle() {
 }
 
 export function init_update_uikit() {
-	//sometimes sticky nav oveflow
+	//sometimes sticky nav overflow
 	if (!is_scroll) {
 		const elResNavWrap = document.querySelector('#resume-nav-wrapper');
 		const elPorNavWrap = document.querySelector('#portfolio-nav-wrapper');
@@ -36,21 +36,21 @@ export function init_update_uikit() {
 }
 
 export function init_menu_toggle() {
-	document.querySelector('.eb-menu-togggle')?.addEventListener('click', function () {
+	document.querySelector('.eb-menu-toggle')?.addEventListener('click', function () {
 		document.querySelector('#app')?.classList.toggle('eb-menu-open');
 	});
 
 	document.querySelector('#btn-menu-toggle')?.addEventListener('click', function (event: Event) {
 		event?.preventDefault?.();
 		const mainMenu: HTMLDivElement | null = document.querySelector('#main-menu');
-		const menuCollapse: HTMLDivElement | null = document.querySelector('#menucollapse');
+		const menuCollapse: HTMLDivElement | null = document.querySelector('#menuCollapse');
 		mainMenu?.classList.toggle('open-menu');
 
-		if (mainMenu?.classList?.contains?.('open-menu') && menuCollapse && menuCollapse?.offsetTop !== window?.pageYOffset)
+		if (mainMenu?.classList?.contains?.('open-menu') && menuCollapse && menuCollapse?.offsetTop !== window?.scrollY) //window?.pageYOffset
 			menuCollapse.scrollIntoView({ behavior: 'smooth', block: 'start', inline: 'start' });
 	});
 
-	document.querySelectorAll('#menucollapse .uk-navbar-nav a')?.forEach((el: Element) => {
+	document.querySelectorAll('#menuCollapse .uk-navbar-nav a')?.forEach((el: Element) => {
 		if (!!el)
 			el?.addEventListener('click', function (event: Event) {
 				event?.preventDefault?.();
@@ -77,12 +77,12 @@ export function init_full_height() {
 	}
 }
 
-export function init_pageloader() {
-	let pageloader = document.querySelector('#pageloader');
+export function init_page_loader() {
+	let pageLoader = document.querySelector('#pageLoader');
 	setTimeout(function () {
-		pageloader?.classList.add('uk-transition-fade');
+		pageLoader?.classList.add('uk-transition-fade');
 		setTimeout(function () {
-			pageloader?.classList.add('page-is-loaded');
+			pageLoader?.classList.add('page-is-loaded');
 			init_check_hash_url();
 		}, 400);
 	}, 300);
@@ -102,11 +102,11 @@ export function init_inner_link() {
 	function onClickInnerLink(pElement: Element) {
 		let el = pElement?.getAttribute('href');
 		let stringOffset = pElement?.getAttribute('data-offset') ?? '0';
-		let ofsset: number = parseInt(stringOffset, 10);
+		let offset: number = parseInt(stringOffset, 10);
 		let el2 = !!el && el.charAt(0) === '/' ? el.replace('/', '') : el;
 		if (!!el2 && el2.charAt(0) === '#' && document.querySelectorAll(el2).length) {
-			ofsset = ofsset > 0 ? ofsset : 79;
-			init_scroll_to(el2, 1500, ofsset);
+			offset = offset > 0 ? offset : 79;
+			init_scroll_to(el2, 1500, offset);
 			return false;
 		}
 	}
@@ -126,7 +126,7 @@ export function init_check_hash_url() {
 	}
 }
 
-export function init_typed(typedData: string[] = ['Developer', 'Desinger', 'Marketer', 'Programmer']) {
+export function init_typed(typedData: string[] = ['Developer', 'Designer', 'Marketer', 'Programmer']) {
 	const typedEl = document?.querySelector?.('#typed');
 	if (!!Typed && !!typedEl) {
 		const newTypedEl = new Typed('#typed', {
@@ -140,8 +140,8 @@ export function init_typed(typedData: string[] = ['Developer', 'Desinger', 'Mark
 	return null;
 }
 
-export function init_alert(id: string, msg: string, classname: string, icon: string): string {
-	let alert = `<div id="${id}" data-uk-alert class="${classname} uk-border-rounded"><a data-uk-close class="uk-alert-close"></a><div class="uk-flex uk-flex-middle"><div><span data-uk-icon="${icon}" class="uk-margin-small-right"></span></div>'<div>${msg}</div></div></div>`;
+export function init_alert(id: string, msg: string, className: string, icon: string): string {
+	let alert = `<div id="${id}" data-uk-alert class="${className} uk-border-rounded"><a data-uk-close class="uk-alert-close"></a><div class="uk-flex uk-flex-middle"><div><span data-uk-icon="${icon}" class="uk-margin-small-right"></span></div>'<div>${msg}</div></div></div>`;
 	return alert;
 }
 
@@ -158,7 +158,7 @@ export function init_btn_loading(btn: Element | null, is_loading: boolean) {
 			btn.appendChild(divUkSpinner);
 		} else {
 			btn.removeAttribute('disabled');
-			if (btnInnerTextWrap && btn.getAttribute('data-textreset')) btnInnerTextWrap.textContent = btn.getAttribute('data-textreset');
+			if (btnInnerTextWrap && btn.getAttribute('data-text-reset')) btnInnerTextWrap.textContent = btn.getAttribute('data-text-reset');
 			if (btnInnerUkIcon) btnInnerUkIcon.setAttribute('hidden', 'hidden');
 			let btnInnerUKSpinner = btn?.querySelector?.('div[uk-spinner]');
 			if (btnInnerUKSpinner) btnInnerUKSpinner.remove();
@@ -251,8 +251,8 @@ export function init_contact_form() {
 export function init_portfolio_details() {
 	const initShowPortfolio = (el: Element) => {
 		let thisEl = el;
-		let elShowDetail = document.querySelector('#show-portofolio-details');
-		let wrapEl = document.querySelector('#portofolio-details');
+		let elShowDetail = document.querySelector('#show-portfolio-details');
+		let wrapEl = document.querySelector('#portfolio-details');
 		wrapEl?.classList.add('uk-animation-toggle');
 
 		// Show loading first
