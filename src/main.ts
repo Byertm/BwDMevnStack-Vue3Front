@@ -6,11 +6,11 @@ import App from '@/App.vue';
 import { router } from '@router/index';
 import $bus from '@plugins/events';
 
-import '@public/assets/css/uikit-custom.min.css';
+// import '@public/assets/css/uikit-custom.min.css';
 // import '@public/assets/scss/uikit-custom.scss';
-import '@public/assets/css/app.min.css';
-import '@public/assets/css/global.css';
-// import '@/style.css';
+// import '@public/assets/css/app.min.css';
+// import '@public/assets/css/global.css';
+import '@/style.scss';
 
 // import '@plugins/circlePlugin.js';
 
