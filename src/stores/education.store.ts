@@ -58,7 +58,7 @@ export const useEducationStore = defineStore({
 		isEducation: (state) => !!state.education.data && !isEmptyObject(state.education.data),
 		isEducations: (state) => !!state.educations?.data?.length,
 		isEmptyEducation: (state) => !!state.education.data && isEmptyObject(state.education.data!),
-		isEmptyEducations: (state) => state.educations.data?.length === 0,
+		isEmptyEducations: (state) => !state.educations?.data || state.educations.data?.length === 0,
 		isErrorEducation: (state) => !!state.education.errors?.length,
 		isErrorEducations: (state) => !!state.educations.errors?.length,
 

@@ -58,7 +58,7 @@ export const useProjectStore = defineStore({
 		isProject: (state) => !!state.project.data && !isEmptyObject(state.project.data),
 		isProjects: (state) => !!state.projects?.data?.length,
 		isEmptyProject: (state) => !!state.project.data && isEmptyObject(state.project.data!),
-		isEmptyProjects: (state) => state.projects.data?.length === 0,
+		isEmptyProjects: (state) => !state.projects?.data || state.projects.data?.length === 0,
 		isErrorProject: (state) => !!state.project.errors?.length,
 		isErrorProjects: (state) => !!state.projects.errors?.length,
 

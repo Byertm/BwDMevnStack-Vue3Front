@@ -139,7 +139,7 @@ export const useUserStore = defineStore({
 		isUsers: (state) => !!state.users?.data?.length,
 		isEmptyMe: (state) => !!state.me.data && isEmptyObject(state.me.data!),
 		isEmptyUser: (state) => !!state.user.data && isEmptyObject(state.user.data!),
-		isEmptyUsers: (state) => state.users.data?.length === 0,
+		isEmptyUsers: (state) => !state.users?.data || state.users.data?.length === 0,
 		isErrorMe: (state) => !!state.me.errors?.length,
 		isErrorUser: (state) => !!state.user.errors?.length,
 		isErrorUsers: (state) => !!state.users.errors?.length,

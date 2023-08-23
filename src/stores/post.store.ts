@@ -30,7 +30,7 @@ export const usePostStore = defineStore({
 			this.newOrEditId = newValue;
 		},
 		async setDefaultPost() {
-			this.post = initialState.post;
+			this.post = { ...initialState.post };
 		},
 		async setAllRecommendedPosts() {
 			this.recommendedPosts.loading = true;
@@ -126,23 +126,23 @@ export const usePostStore = defineStore({
 		},
 		async getBySlug(slug: string) {
 			this.post.loading = true;
-			// await this.updateEditingId(slug);
 			await this.setDefaultPost();
 
 			await service
 				.getBySlug(slug)
 				.then(async (data) => await data.data)
 				.then((data) => {
+					debugger;
 					this.post.data = data;
 					this.setAllRecommendedPosts();
 				})
 				.catch((error) => {
+					debugger;
 					this.post.data = null;
 					this.post.errors.push(error);
 				})
 				.finally(() => {
 					this.post.loading = false;
-					// this.getAll();
 				});
 		},
 		async newPost(post: Partial<IPost>): Promise<boolean> {
@@ -216,7 +216,7 @@ export const usePostStore = defineStore({
 		isCategoryPosts: (state) => !!state.categoryPosts?.data?.length,
 		isRecommendedPosts: (state) => !!state.recommendedPosts?.data?.length,
 		isEmptyPost: (state) => !!state.post.data && isEmptyObject(state.post.data!),
-		isEmptyPosts: (state) => state.posts.data?.length === 0,
+		isEmptyPosts: (state) => !state.posts?.data || state.posts?.data?.length === 0,
 		isEmptyTagPosts: (state) => state.tagPosts.data?.length === 0,
 		isEmptyCategoryPosts: (state) => state.categoryPosts.data?.length === 0,
 		isRecommendedEmptyPosts: (state) => state.recommendedPosts.data?.length === 0,
@@ -229,7 +229,8 @@ export const usePostStore = defineStore({
 		isEditingPost: (state) => !!state.newOrEditId && (typeof state.newOrEditId === 'string' || (typeof state.newOrEditId === 'number' && state.newOrEditId > -1)),
 		isNewPost: (state) => !state.newOrEditId,
 
-		getPost: (state) => (state.post.data ? state.post.data : {} || {}),
+		// getPost: (state) => (state.post.data ? state.post.data : {} || {}),
+		getPost: (state) => state.post.data,
 		getPosts: (state) => state.posts.data || [],
 		getTagPosts: (state) => state.tagPosts.data || [],
 		getCategoryPosts: (state) => state.categoryPosts.data || [],

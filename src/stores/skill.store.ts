@@ -58,7 +58,7 @@ export const useSkillStore = defineStore({
 		isSkill: (state) => !!state.skill.data && !isEmptyObject(state.skill.data),
 		isSkills: (state) => !!state.skills?.data?.length,
 		isEmptySkill: (state) => !!state.skill.data && isEmptyObject(state.skill.data!),
-		isEmptySkills: (state) => state.skills.data?.length === 0,
+		isEmptySkills: (state) => !state.skills?.data || state.skills.data?.length === 0,
 		isErrorSkill: (state) => !!state.skill.errors?.length,
 		isErrorSkills: (state) => !!state.skills.errors?.length,
 

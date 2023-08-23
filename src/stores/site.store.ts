@@ -5,11 +5,10 @@ import type { ISite, ISiteOwner, ISiteLogo, ISiteSection } from '@models/site';
 
 interface SiteState {
 	site: { data: ISite | undefined | null; loading: boolean; errors: any[] };
+	siteWebAddress: string;
 }
 
-const initialState = {
-	site: { data: null, loading: false, errors: [] }
-} as SiteState;
+const initialState = { site: { data: null, loading: false, errors: [] }, siteWebAddress: '' } as SiteState;
 
 export const useSiteStore = defineStore({
 	id: 'siteOptions',
@@ -30,9 +29,14 @@ export const useSiteStore = defineStore({
 				.finally(() => {
 					this.site.loading = false;
 				});
+		},
+		async setSiteWebAddress() {
+			this.siteWebAddress = location.origin;
 		}
 	},
 	getters: {
+		isSiteWebAddress: (state) => !!state?.siteWebAddress,
+
 		isSite: (state) => !!state?.site?.data && !isEmptyObject(state.site.data),
 		isEmptySite: (state) => !!state?.site?.data && isEmptyObject(state.site.data!),
 		isErrorSite: (state) => !!state?.site?.errors?.length,
@@ -45,11 +49,13 @@ export const useSiteStore = defineStore({
 		isEmptySiteLogo: (state) => !!state?.site?.data?.logo && isEmptyObject(state.site.data?.logo),
 		isErrorSiteLogo: (state) => !!state?.site?.errors?.length,
 
+		getSiteWebAddress: (state) => state.siteWebAddress,
+
 		getSite: (state) => (!!state?.site?.data ? (state.site.data as ISite) : {} || {}),
 		getSiteErrors: (state) => state?.site?.errors || [],
 
 		getSiteOwner: (state) => (!!state?.site?.data?.owner ? (state.site.data.owner as ISiteOwner) : {} || {}),
-		getSiteLogo: (state) => (!!state?.site?.data?.logo ? (state.site.data.logo as ISiteLogo) : {} || {}),
+		getSiteLogo: (state) => (!!state?.site?.data?.logo ? (state.site.data.logo as ISiteLogo) : {} || {})
 		// getSiteSections: (state) => (!!state?.site?.data?.sections?.length ? (state.site.data.sections as Array<ISiteSection>) : [] || [])
 	}
 });

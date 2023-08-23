@@ -83,7 +83,7 @@ export const useCommentStore = defineStore({
 					this.comment.errors.push(error);
 					returnVal = Promise.reject(false);
 				})
-				.finally(() => ((this.comment.loading = false)));
+				.finally(() => (this.comment.loading = false));
 
 			return returnVal;
 		},
@@ -105,7 +105,7 @@ export const useCommentStore = defineStore({
 					this.comment.errors.push(error);
 					returnVal = Promise.reject(false);
 				})
-				.finally(() => ((this.comment.loading = false)));
+				.finally(() => (this.comment.loading = false));
 
 			return returnVal;
 		},
@@ -126,7 +126,7 @@ export const useCommentStore = defineStore({
 					this.comment.errors.push(error);
 					returnVal = Promise.reject(false);
 				})
-				.finally(() => ((this.comment.loading = false)));
+				.finally(() => (this.comment.loading = false));
 
 			return returnVal;
 		}
@@ -135,7 +135,7 @@ export const useCommentStore = defineStore({
 		isComment: (state) => !!state.comment.data && !isEmptyObject(state.comment.data),
 		isComments: (state) => !!state.comments?.data?.length,
 		isEmptyComment: (state) => !!state.comment.data && isEmptyObject(state.comment.data!),
-		isEmptyComments: (state) => state.comments.data?.length === 0,
+		isEmptyComments: (state) => !state.comments?.data || state.comments.data?.length === 0,
 		isErrorComment: (state) => !!state.comment.errors?.length,
 		isErrorComments: (state) => !!state.comments.errors?.length,
 

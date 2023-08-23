@@ -58,7 +58,7 @@ export const useTagStore = defineStore({
 		isTag: (state) => !!state.tag.data && !isEmptyObject(state.tag.data),
 		isTags: (state) => !!state.tags?.data?.length,
 		isEmptyTag: (state) => !!state.tag.data && isEmptyObject(state.tag.data!),
-		isEmptyTags: (state) => state.tags.data?.length === 0,
+		isEmptyTags: (state) => !state.tags?.data || state.tags.data?.length === 0,
 		isErrorTag: (state) => !!state.tag.errors?.length,
 		isErrorTags: (state) => !!state.tags.errors?.length,
 

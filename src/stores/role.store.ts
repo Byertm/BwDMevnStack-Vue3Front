@@ -58,7 +58,7 @@ export const useRoleStore = defineStore({
 		isRole: (state) => !!state.role.data && !isEmptyObject(state.role.data),
 		isRoles: (state) => !!state.roles?.data?.length,
 		isEmptyRole: (state) => !!state.role.data && isEmptyObject(state.role.data!),
-		isEmptyRoles: (state) => state.roles.data?.length === 0,
+		isEmptyRoles: (state) => !state.roles?.data || state.roles.data?.length === 0,
 		isErrorRole: (state) => !!state.role.errors?.length,
 		isErrorRoles: (state) => !!state.roles.errors?.length,
 

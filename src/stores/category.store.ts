@@ -74,7 +74,7 @@ export const useCategoryStore = defineStore({
 		isCategories: (state) => !!state.categories?.data?.length,
 		isMainCategories: (state) => !!state.categories?.data?.length,
 		isEmptyCategory: (state) => !!state.category.data && isEmptyObject(state.category.data!),
-		isEmptyCategories: (state) => state.categories.data?.length === 0,
+		isEmptyCategories: (state) => !state.categories?.data || state.categories.data?.length === 0,
 		isMainEmptyCategories: (state) => state.categories.data?.length === 0,
 		isErrorCategory: (state) => !!state.category.errors?.length,
 		isErrorCategories: (state) => !!state.categories.errors?.length,

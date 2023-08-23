@@ -58,7 +58,7 @@ export const useExperienceStore = defineStore({
 		isExperience: (state) => !!state.experience.data && !isEmptyObject(state.experience.data),
 		isExperiences: (state) => !!state.experiences?.data?.length,
 		isEmptyExperience: (state) => !!state.experience.data && isEmptyObject(state.experience.data!),
-		isEmptyExperiences: (state) => state.experiences.data?.length === 0,
+		isEmptyExperiences: (state) => !state.experiences?.data || state.experiences.data?.length === 0,
 		isErrorExperience: (state) => !!state.experience.errors?.length,
 		isErrorExperiences: (state) => !!state.experiences.errors?.length,
 

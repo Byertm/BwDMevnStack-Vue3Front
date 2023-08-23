@@ -58,7 +58,7 @@ export const useTestimonialStore = defineStore({
 		isTestimonial: (state) => !!state.testimonial.data && !isEmptyObject(state.testimonial.data),
 		isTestimonials: (state) => !!state.testimonials?.data?.length,
 		isEmptyTestimonial: (state) => !!state.testimonial.data && isEmptyObject(state.testimonial.data!),
-		isEmptyTestimonials: (state) => state.testimonials.data?.length === 0,
+		isEmptyTestimonials: (state) => !state.testimonials?.data || state.testimonials.data?.length === 0,
 		isErrorTestimonial: (state) => !!state.testimonial.errors?.length,
 		isErrorTestimonials: (state) => !!state.testimonials.errors?.length,
 
