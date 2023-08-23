@@ -22,6 +22,7 @@
 			</router-link>
 		</li> -->
 	</nav>
+
 	<nav class="uk-navbar-nav -uk-visible@s">
 		<li class="uk-flex">
 			<ThemeSwitcher></ThemeSwitcher>
@@ -32,9 +33,8 @@
 <script setup lang="ts">
 	import { storeToRefs } from "pinia";
 	import { useAuthStore, useUserStore } from "@/stores";
-	import { useRouter } from "vue-router";
-	import { RouterLink } from "vue-router";
-	import ThemeSwitcher from "./ThemeSwitcher.vue";
+	import ThemeSwitcher from "@components/layout/ThemeSwitcher.vue";
+	import { RouterLink, useRouter } from "vue-router";
 
 	const router = useRouter();
 
