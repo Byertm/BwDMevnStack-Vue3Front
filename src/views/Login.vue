@@ -97,4 +97,22 @@
 	});
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+	.uk-light {
+		.uk-input,
+		.uk-select,
+		.uk-textarea {
+			color: #333333;
+			border-color: #e5e5e5;
+			// border: 1px solid #e5e5e5;
+
+			&::placeholder {
+				color: #e5e5e5;
+			}
+		}
+
+		.uk-form-icon {
+			color: #333333;
+		}
+	}
+</style>

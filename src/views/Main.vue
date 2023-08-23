@@ -20,8 +20,13 @@
 	// const route = useRoute();
 	const siteStore = useSiteStore();
 	const sectionStore = useSectionStore();
-	const { isSite, isSiteOwner, isSiteLogo, getSite, getSiteOwner, getSiteLogo } = storeToRefs(siteStore);
+	const { isSite, isSiteOwner, isSiteLogo, isSiteWebAddress, getSite, getSiteOwner, getSiteLogo, getSiteWebAddress } = storeToRefs(siteStore);
 	const { isSection, isSections, getSection, getSections } = storeToRefs(sectionStore);
+
+	watch([() => getSiteWebAddress.value, () => isSiteWebAddress.value], async () => {
+		if (!getSiteWebAddress.value) await siteStore.setSiteWebAddress();
+		provide(SiteInjectionKeys.siteWebAddressKey, { data: siteStore.getSiteWebAddress });
+	});
 
 	watch([() => getSite.value, () => isSite.value], () => {
 		provide(SiteInjectionKeys.siteKey, { data: siteStore.getSite });
@@ -128,7 +133,10 @@
 	onBeforeMount(() => {
 		if (!isSite.value) siteStore.get();
 		if (!isSections.value) sectionStore.get();
+		if (!isSiteWebAddress.value) siteStore.setSiteWebAddress();
 
+		provide(SiteInjectionKeys.siteWebAddressKey, { getSiteWebAddress: siteStore.getSiteWebAddress, isSiteWebAddress: siteStore.isSiteWebAddress });
+		// provide(SiteInjectionKeys.siteWebAddressKey, siteStore.getSiteWebAddress);
 		provide(SiteInjectionKeys.siteKey, { getSite: siteStore.getSite, isSite: siteStore.isSite });
 		provide(SiteInjectionKeys.ownerKey, { getSiteOwner: siteStore.getSiteOwner, isSiteOwner: siteStore.isSiteOwner });
 		provide(SiteInjectionKeys.logoKey, { getSiteLogo: siteStore.getSiteLogo, isSiteLogo: siteStore.isSiteLogo });
@@ -137,6 +145,7 @@
 
 		console.log("isSite", isSite.value);
 		console.log("isSections", isSections.value);
+		console.log("isSiteWebAddress", isSiteWebAddress.value);
 
 		// 	gp()?.$bus.$off("event", () => {});
 	});
