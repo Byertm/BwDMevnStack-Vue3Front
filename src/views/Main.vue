@@ -51,85 +51,33 @@
 	});
 
 	const sections: any = [
-		{
-			key: "hero",
-			name: "Hero",
-			isVisible: true
-		},
-		{
-			key: "about",
-			name: "About",
-			isVisible: true
-		},
+		{ key: "hero", name: "Hero", isVisible: true },
+		{ key: "about", name: "About", isVisible: true },
 		{
 			key: "resume",
 			name: "Resume",
 			isVisible: true,
 			sections: [
-				{
-					key: "education",
-					name: "Education",
-					isVisible: true
-				},
-				{
-					key: "experience",
-					name: "Experience",
-					isVisible: true
-				},
-				{
-					key: "skill",
-					name: "Skill",
-					isVisible: true
-				}
+				{ key: "education", name: "Education", isVisible: true },
+				{ key: "experience", name: "Experience", isVisible: true },
+				{ key: "skill", name: "Skill", isVisible: true }
 			]
 		},
-		{
-			key: "resume-bar",
-			name: "Resume Bar",
-			isVisible: true
-		},
+		{ key: "resume-bar", name: "Resume Bar", isVisible: true },
 		{
 			key: "portfolio",
 			name: "Portfolio",
 			isVisible: true,
 			sections: [
-				{
-					key: "work",
-					name: "My Works",
-					isVisible: true
-				},
-				{
-					key: "pricing",
-					name: "Pricing",
-					isVisible: false
-				},
-				{
-					key: "testimonial",
-					name: "Testimonial",
-					isVisible: true
-				},
-				{
-					key: "client",
-					name: "Client",
-					isVisible: true
-				}
+				{ key: "work", name: "My Works", isVisible: true },
+				{ key: "pricing", name: "Pricing", isVisible: false },
+				{ key: "testimonial", name: "Testimonial", isVisible: true },
+				{ key: "client", name: "Client", isVisible: true }
 			]
 		},
-		{
-			key: "work-bar",
-			name: "Work Bar",
-			isVisible: true
-		},
-		{
-			key: "blog",
-			name: "Blog",
-			isVisible: true
-		},
-		{
-			key: "contact",
-			name: "Contact",
-			isVisible: true
-		}
+		{ key: "work-bar", name: "Work Bar", isVisible: true },
+		{ key: "blog", name: "Blog", isVisible: true },
+		{ key: "contact", name: "Contact", isVisible: true }
 	];
 
 	onBeforeMount(() => {
