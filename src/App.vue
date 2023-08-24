@@ -7,6 +7,8 @@
 	import { onMounted, onUnmounted } from "@vue/runtime-core";
 	import { is_scroll, is_resize, my_scroll, my_resize, init_full_height, init_update_uikit, init_scroll } from "@plugins/app-plugins";
 
+	defineOptions({ name: "BwDMevnStackApp", inheritAttrs: false });
+
 	let isScroll: boolean = false;
 	let isResize: boolean = false;
 	let myScroll: number, myResize: number;

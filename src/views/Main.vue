@@ -17,6 +17,8 @@
 	import { SiteInjectionKeys } from "@models/site";
 	import { storeToRefs } from "pinia";
 
+	defineOptions({ name: "MainLayout", inheritAttrs: false });
+
 	// const route = useRoute();
 	const siteStore = useSiteStore();
 	const sectionStore = useSectionStore();
