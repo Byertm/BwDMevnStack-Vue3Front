@@ -2,7 +2,7 @@ import axios from 'axios';
 import type { AxiosRequestConfig, AxiosResponse } from 'axios';
 import { useAxios } from '@vueuse/integrations/useAxios';
 import { computed, reactive, shallowRef } from '@vue/reactivity';
-import { getLS, setLSWithModel, setLSWithStringfyForData } from '@plugins/index';
+import { getLS, setLSWithModel, setWithStringifyForData } from '@plugins/index';
 import { API_URL } from '@plugins/mixins';
 
 export enum EFetchTypes {
@@ -53,7 +53,7 @@ instance.interceptors.response.use(
 					const { user, token: accessToken } = rs.data;
 
 					if (user) {
-						setLSWithStringfyForData({ key: 'user', value: user });
+						setWithStringifyForData({ key: 'user', value: user });
 						setLSWithModel({ key: 'accessToken', value: accessToken });
 						setLSWithModel({ key: 'refreshToken', value: user.refresh_token });
 						instance.defaults.headers.common['Authorization'] = `Bearer ${accessToken}`;

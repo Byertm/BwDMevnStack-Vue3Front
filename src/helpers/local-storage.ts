@@ -22,7 +22,7 @@ const set = ({ key, value }: SetData<any>) => {
 	localStorage.setItem(key, value);
 };
 
-const setWithStringfyForData = ({ key, value: _value }: SetData<any>) => {
+const setWithStringifyForData = ({ key, value: _value }: SetData<any>) => {
 	set({ key, value: JSON.stringify(_value) });
 };
 
@@ -53,11 +53,11 @@ export {
 	get as getLS,
 	getWithParse as getLSWithParse,
 	set as setLS,
-	setWithStringfyForData as setLSWithStringfyForData,
+	setWithStringifyForData,
 	setWithModel as setLSWithModel,
 	remove as removeLS,
 	length as lengthLS,
 	key as keyLS
 };
 
-export default { get, getWithParse, set, setWithStringfyForData, setWithModel, remove, length, key };
+export default { get, getWithParse, set, setWithStringfyForData: setWithStringifyForData, setWithModel, remove, length, key };

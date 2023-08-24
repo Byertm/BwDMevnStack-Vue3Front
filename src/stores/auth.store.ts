@@ -1,5 +1,5 @@
 import { defineStore } from 'pinia';
-import { getLS, setLSWithModel, setLSWithStringfyForData, removeLS } from '@helpers/local-storage';
+import { getLS, setLSWithModel, setWithStringifyForData, removeLS } from '@helpers/local-storage';
 import { authLogin, authRegister, authRefreshToken, authRecoveryPassword, contactForm } from '@services/auth.service';
 import { ContactFormValues } from '@models/site';
 import router from '@router/index';
@@ -17,7 +17,7 @@ export const useAuthStore = defineStore({
 	actions: {
 		setTokens() {
 			if (!!this.user) {
-				setLSWithStringfyForData({ key: 'user', value: this.user });
+				setWithStringifyForData({ key: 'user', value: this.user });
 				setLSWithModel({ key: 'accessToken', value: this.user.token });
 				setLSWithModel({ key: 'refreshToken', value: this.user.refresh_token });
 			} else {
