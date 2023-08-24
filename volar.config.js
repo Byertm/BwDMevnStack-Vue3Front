@@ -1,3 +1,1 @@
-const vetur = require('@volar-plugins/vetur');
-
-module.exports = { plugins: [vetur()] };
+module.exports = { services: [require('volar-service-vetur').default()] };
