@@ -46,8 +46,8 @@ export const getAssetsImageByImageUrl = (imageUrl: string | null) => {
 	return imageUrl ? `/${imageUrl}` : '';
 };
 
-export const getApiImageByImageUrl = (imageUrl: string | null) => {
-	return imageUrl ? `${API_URL}/${imageUrl}` : '';
+export const getApiImageByImageUrl = (imageUrl?: string | null) => {
+	return !!imageUrl ? `${API_URL}/${imageUrl}` : '';
 };
 
 export const formatEducation = (education: any) => {
@@ -76,12 +76,12 @@ export const formatExperience = (experience: any) => {
 
 export const formatPost = (post: any) => {
 	return {
-		id: post.id,
+		id: post?.id,
 		title: post.title,
 		content: post.content,
 		category: post.category?.name || '',
 		author: post.author?.name || '',
-		image: getApiImageByImageUrl(post.imageUrl),
+		image: getApiImageByImageUrl(post?.imageUrl),
 		date: formatDate(post?.createdAt) || '',
 		like: 0,
 		comment: post.comments?.length || 0,

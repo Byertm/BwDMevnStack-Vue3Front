@@ -1,5 +1,4 @@
 <template>
-	<PageLoader></PageLoader>
 
 	<MainHeader :isShowHome="false"></MainHeader>
 
@@ -109,7 +108,6 @@
 </template>
 
 <script setup lang="ts">
-	import PageLoader from "@components/PageLoader.vue";
 	import MainHeader from "@components/MainHeader.vue";
 	import About from "@components/main/About.vue";
 

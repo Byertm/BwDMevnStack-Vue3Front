@@ -1,7 +1,5 @@
-import { createRouter, createWebHistory, NavigationGuardNext, RouteLocationNormalized, RouteRecordRaw, useRoute } from 'vue-router';
+import { createRouter, createWebHistory, NavigationGuardNext, RouteLocationNormalized, RouteRecordRaw } from 'vue-router';
 import { useAuthStore } from '@stores/auth.store';
-
-// const route = useRoute();
 
 const routes: readonly RouteRecordRaw[] = [
 	{ path: '/', name: 'main', component: () => import('@views/Main.vue') },
@@ -21,7 +19,7 @@ const routes: readonly RouteRecordRaw[] = [
 	// },
 	{ path: '/login', name: 'login', component: () => import('@views/Login.vue') },
 	{ path: '/register', name: 'register', component: () => import('@views/Register.vue') },
-	{ path: '/:path(.*)', component: () => import('@views/NotFound.vue'), props: (route) => ({ title: route.params.title }) } // , props: { title: '404', subTitle: 'Aradığınız sayfa bulunamadı!' }
+	{ path: '/:path(.*)', name: 'error', component: () => import('@views/NotFound.vue'), props: (route) => ({ title: route.params.title }) } // , props: { title: '404', subTitle: 'Aradığınız sayfa bulunamadı!' }
 ];
 
 const router = createRouter({
@@ -44,10 +42,10 @@ router.beforeEach(async (to: RouteLocationNormalized, _from: RouteLocationNormal
 		// debugger;
 		return !to.params?.slug ? route.path.includes(to.path) : route.path.includes(to.hash);
 	});
-	console.log({ isRouteMatch });
+	// console.log({ isRouteMatch });
 	const authStore = await useAuthStore();
 
-	console.log({ toPath: to.path });
+	// console.log({ toPath: to.path });
 
 	// if (to.meta.requiresAuth && !authStore.isLogged) return '/login';
 	if (authRequired && !authStore.isLogged) {
@@ -55,6 +53,7 @@ router.beforeEach(async (to: RouteLocationNormalized, _from: RouteLocationNormal
 		next({ path: '/login', query: { returnUrl: to.path } }); // to.href
 	} else next();
 });
+
 
 export { routes, router };
 

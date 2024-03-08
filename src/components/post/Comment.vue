@@ -8,18 +8,20 @@
 					</div>
 
 					<div class="uk-width-expand">
-						<h4 class="uk-comment-title uk-margin-remove">
+						<h4 v-if="comment.author?.name" class="uk-comment-title uk-margin-remove">
 							<router-link to="/#" class="uk-link-reset">{{ comment.author?.name }}</router-link>
 						</h4>
 
+						<span v-else class="uk-comment-title uk-margin-remove">Test Kullanıcısı</span>
+
 						<p class="uk-comment-meta uk-margin-remove-top">
-							<router-link to="/#" class="uk-link-reset">{{ comment.createdAt }}</router-link>
+							<router-link to="/#" class="uk-link-reset">{{ formattedCreatedAt }}</router-link>
 						</p>
 					</div>
 				</div>
 
 				<div class="uk-position-top-right uk-position-small uk-hidden-hover">
-					<a @click.prevent="showAnswerComment" class="uk-link-muted">Cevap ver</a>
+					<a @click.prevent="showAnswerComment" class="uk-link-muted">{{ newCommentButtonText }}</a>
 				</div>
 			</header>
 
@@ -46,10 +48,13 @@
 	import { computed, ref } from "@vue/reactivity";
 	import { IComment } from "@models/comment";
 	import NewComment from "@components/post/NewComment.vue";
+	import { formatDate } from "@plugins/index";
 
 	const props = defineProps<{ comment: IComment }>();
 
+	const formattedCreatedAt = computed(() => formatDate(props.comment?.createdAt));
 	const isChildren = computed(() => props.comment?.children?.length);
+	const newCommentButtonText = computed(() => (!isShowNewComment.value ? "Cevap Ver" : "İptal"));
 
 	const isShowNewComment = ref<boolean>(false);
 

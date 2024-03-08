@@ -132,12 +132,12 @@ export const usePostStore = defineStore({
 				.getBySlug(slug)
 				.then(async (data) => await data.data)
 				.then((data) => {
-					debugger;
+					// debugger;
 					this.post.data = data;
 					this.setAllRecommendedPosts();
 				})
 				.catch((error) => {
-					debugger;
+					// debugger;
 					this.post.data = null;
 					this.post.errors.push(error);
 				})

@@ -1,5 +1,4 @@
 <template>
-	<PageLoader></PageLoader>
 	<MainHeader :isShowHome="true"></MainHeader>
 	<MainSection></MainSection>
 	<MainFooter></MainFooter>
@@ -8,7 +7,6 @@
 <script setup lang="ts">
 	// import { onMounted, onBeforeMount } from "@vue/runtime-core";
 	import { onBeforeMount, provide, watch } from "@vue/runtime-core";
-	import PageLoader from "@components/PageLoader.vue";
 	import MainHeader from "@components/MainHeader.vue";
 	import MainSection from "@components/MainSection.vue";
 	import MainFooter from "@components/MainFooter.vue";
@@ -93,9 +91,9 @@
 		provide(SiteInjectionKeys.sectionKey, { getSection: sectionStore.getSection, isSection: sectionStore.isSection });
 		provide(SiteInjectionKeys.sectionsKey, { getSections: sectionStore.getSections, isSections: sectionStore.isSections });
 
-		console.log("isSite", isSite.value);
-		console.log("isSections", isSections.value);
-		console.log("isSiteWebAddress", isSiteWebAddress.value);
+		// console.log("isSite", isSite.value);
+		// console.log("isSections", isSections.value);
+		// console.log("isSiteWebAddress", isSiteWebAddress.value);
 
 		// 	gp()?.$bus.$off("event", () => {});
 	});

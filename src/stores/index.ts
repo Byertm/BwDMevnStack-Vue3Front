@@ -1,6 +1,7 @@
 export * from '@/stores/home.store';
 export * from '@/stores/about.store';
 
+export * from '@stores/api.store';
 export * from '@stores/auth.store';
 export * from '@stores/category.store';
 export * from '@stores/comment.store';

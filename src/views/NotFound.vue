@@ -1,5 +1,4 @@
 <template>
-	<PageLoader></PageLoader>
 	<MainHeader :isShowHome="false"></MainHeader>
 
 	<div id="notfound" class="uk-container uk-container-center">
@@ -29,7 +28,6 @@
 	import { provide } from "@vue/runtime-core";
 	import { IErrorPage } from "@models/index";
 	import { SiteInjectionKeys } from "@models/site";
-	import PageLoader from "@components/PageLoader.vue";
 	import MainHeader from "@components/MainHeader.vue";
 	import MainFooter from "@components/MainFooter.vue";
 	import { useSiteStore } from "@/stores";

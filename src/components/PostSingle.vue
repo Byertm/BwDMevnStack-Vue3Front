@@ -102,7 +102,7 @@
 		if (!isSiteWebAddress.value) siteStore.setSiteWebAddress();
 
 		// if (!isPost.value) router.push({ path: "/error" });
-		if (!isPost.value) router.push({ path: "/error", params: { title: "test", subTitle: "test test" } });
+		if (!isPost.value) router.push({ name: "error", params: { title: "test", subTitle: "test test" } });
 	});
 </script>
 

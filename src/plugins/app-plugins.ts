@@ -92,7 +92,9 @@ export function init_scroll_to(el: string | undefined, speed: number, offset: nu
 	if (el) {
 		let rect = document?.querySelector(el)?.getBoundingClientRect?.();
 		if (rect) {
-			let elOffset = { top: rect?.top + window?.scrollY ?? 0, left: rect?.left + window?.scrollX ?? 0 };
+			const nTop = (rect?.top + window?.scrollY);
+			const nLeft = (rect?.left + window?.scrollX);
+			let elOffset = { top: !! !nTop ? nTop : 0, left: !!nLeft ? nLeft : 0 };
 			document?.querySelector?.('html, body')?.animate({ scrollTop: elOffset.top - offset }, { duration: speed, easing: 'ease' }); //easeInOutExpo
 		}
 	}

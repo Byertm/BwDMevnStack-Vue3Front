@@ -1,6 +1,4 @@
 <template>
-	<PageLoader></PageLoader>
-
 	<PostHeader :isShowHome="true"></PostHeader>
 
 	<main class="eb-main-content">
@@ -95,7 +93,6 @@
 	import { Form, Field } from "vee-validate";
 	import { storeToRefs } from "pinia";
 	import { object, string } from "yup";
-	import PageLoader from "@components/PageLoader.vue";
 	import PostHeader from "@components/PostHeader.vue";
 	import PostFooter from "@components/PostFooter.vue";
 	import { emailRegex } from "@models/user";

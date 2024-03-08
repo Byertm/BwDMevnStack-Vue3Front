@@ -1,8 +1,4 @@
 <template>
-	<!-- page loader -->
-	<PageLoader></PageLoader>
-	<!-- end page loader -->
-
 	<!-- main header -->
 	<!-- <MainHeader :isShowHome="false"></MainHeader> -->
 	<PostHeader></PostHeader>
@@ -19,9 +15,8 @@
 </template>
 
 <script setup lang="ts">
-	import PageLoader from "@components/PageLoader.vue";
 	// import MainHeader from "@components/MainHeader.vue";
-	import PostHeader from '@components/PostHeader.vue';
+	import PostHeader from "@components/PostHeader.vue";
 	import PostList from "@components/PostList.vue";
 	import PostFooter from "@components/PostFooter.vue";
 	// import MainFooter from '@components/PostFooter.vue';

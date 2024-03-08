@@ -1,8 +1,4 @@
 <template>
-	<!-- page loader -->
-	<PageLoader></PageLoader>
-	<!-- end page loader -->
-
 	<!-- main header -->
 	<PostHeader></PostHeader>
 	<!-- end main header -->
@@ -18,7 +14,6 @@
 
 <script setup lang="ts">
 	// import { onMounted } from "@vue/runtime-core";
-	import PageLoader from "@components/PageLoader.vue";
 	import PostHeader from "@components/PostHeader.vue";
 	import PostSingle from "@components/PostSingle.vue";
 	import PostFooter from "@components/PostFooter.vue";

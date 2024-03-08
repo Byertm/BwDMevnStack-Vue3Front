@@ -1,5 +1,5 @@
 <template>
-	<div class="eb-margin-bottom-1">
+	<div class="eb-margin-top-1">
 		<h3 class="uk-heading-line eb-section-title">
 			<span>Lütfen bir cevap bırakın</span>
 		</h3>
